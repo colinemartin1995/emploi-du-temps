@@ -38,6 +38,14 @@ namespace ItechSupEDT.Ajout_UC
             this.sp_valider.Visibility = Visibility.Collapsed;
         }
 
+        public AjoutMatiere(Matiere _matiere)
+        {
+            InitializeComponent();
+            this.LstMatiere = new List<Matiere>();
+            this.sp_valider.Visibility = Visibility.Collapsed;
+            this.tb_nomMatiere.Text = _matiere.Nom;
+        }
+
         private void btn_valider_Click(object sender, RoutedEventArgs e)
         {
             if (this.tb_nomMatiere.Text == "")

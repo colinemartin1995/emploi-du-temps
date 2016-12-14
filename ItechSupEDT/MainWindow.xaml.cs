@@ -53,5 +53,21 @@ namespace ItechSupEDT
             AjoutFormateur ajoutFormateur = new AjoutFormateur(lstMatiere);
             this.Ajout.Content = ajoutFormateur;
         }
+
+        private void mi_afficher_formation_Click(object sender, RoutedEventArgs e)
+        {
+            // Récuperer la formation depuis la base de donnée (id = 1 par exemple)
+            Formation formation = new Modele.Formation("NomFormation", 150);
+            Ajout_UC.AjoutFormation ajoutFormation = new Ajout_UC.AjoutFormation(formation);
+            this.Ajout.Content = ajoutFormation;
+        }
+
+        private void mi_afficher_matiere_Click(object sender, RoutedEventArgs e)
+        {
+            // Récuperer la matière depuis la base de donnée (id = 1 par exemple)
+            Matiere matiere = new Modele.Matiere("NomMatiere");
+            Ajout_UC.AjoutMatiere ajoutMatiere = new Ajout_UC.AjoutMatiere(matiere);
+            this.Ajout.Content = ajoutMatiere;
+        }
     }
 }

@@ -28,6 +28,13 @@ namespace ItechSupEDT.Ajout_UC
             InitializeComponent();
         }
 
+        public AjoutFormation(Formation _formation)
+        {
+            InitializeComponent();
+            tb_nomFormation.Text = _formation.Nom;
+            tb_dureeFormation.Text = _formation.NbHeuresTotal.ToString();
+        }
+
         private void btn_ajoutFormation_Click(object sender, RoutedEventArgs e)
         {
             String nom = tb_nomFormation.Text;
