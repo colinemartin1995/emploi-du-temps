@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ItechSupEDT.Modele;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace ItechSupEDT.Ajout_UC
 {
@@ -35,12 +37,26 @@ namespace ItechSupEDT.Ajout_UC
                 float duree = Single.Parse(nbHeures);
                 try
                 {
-                    //Formation formation = new Formation(nom, duree, lstMatiere);
+                    Formation formation = new Formation(nom, duree);
                 }
-                catch(Formation.FormationException error)
+                catch (Formation.FormationException error)
                 {
                     tbk_errorMessage.Text = error.Message;
-                }       
+                }
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+
+                    cmd.CommandText = "INSERT INTO Formation (Nom, NbHeuresTotal) VALUES (\'" + nom + "\'," + duree + ");";
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
+                    tbk_errorMessage.Text = cmd.CommandText;
+                    cmd.ExecuteReader();
+                }
+                catch (Exception error)
+                {
+                    tbk_errorMessage.Text += error.Message;
+                }
             }
             catch(Exception)
             {

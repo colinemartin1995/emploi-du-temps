@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ItechSupEDT.Modele;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace ItechSupEDT.Ajout_UC
 {
@@ -50,6 +52,22 @@ namespace ItechSupEDT.Ajout_UC
                 this.tbk_error.Visibility = Visibility.Collapsed;
             }
             this.LstMatiere.Add(new Matiere(this.tb_nomMatiere.Text));
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+
+                cmd.CommandText = "INSERT INTO Matiere (Nom) VALUES (\'" + this.tb_nomMatiere.Text + "\');";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
+                tbk_error.Text = cmd.CommandText;
+                cmd.ExecuteReader();
+            }
+            catch (Exception error)
+            {
+                tbk_error.Text += error.Message;
+                this.tbk_error.Visibility = Visibility.Visible;
+                return;
+            }
             this.tb_nomMatiere.Text = "";
             this.tbk_retourMessage.Text = "Matière Ajoutée";
             this.sp_Ajout.Visibility = Visibility.Collapsed;

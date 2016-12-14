@@ -122,6 +122,7 @@
     <Compile Include="Modele\Promotion.cs" />
     <Compile Include="Modele\Salle.cs" />
     <Compile Include="Modele\Session.cs" />
+    <Compile Include="Outils\ConnexionBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
