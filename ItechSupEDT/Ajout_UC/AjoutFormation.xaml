@@ -6,20 +6,23 @@
              xmlns:local="clr-namespace:ItechSupEDT.Ajout_UC"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel HorizontalAlignment="Center">
-        <StackPanel>
-            <TextBlock x:Name="tbk_errorMessage" />
+    <Border HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" BorderThickness="1,1,1,1" BorderBrush="Black">
+        <StackPanel HorizontalAlignment="Center">
+            <StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <TextBlock Margin="5,5,5,5">Nom de la formation :</TextBlock>
+                <TextBox x:Name="tb_nomFormation" MinWidth="150"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="5,5,5,5">Durée de la formation :</TextBlock>
+                <TextBox x:Name="tb_dureeFormation" MinWidth="150"/>
+            </StackPanel>
+            <StackPanel Margin="5">
+                <Button x:Name="btn_ajoutFormation" Content="Ajouter" Width="100" Click="btn_ajoutFormation_Click"/>
+            </StackPanel>
+            <TextBlock Name="tbk_error" HorizontalAlignment="Center" Visibility="Collapsed" Foreground="Red" />
+            <TextBlock Name="tbk_statut" HorizontalAlignment="Center" Visibility="Collapsed"/>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="5">
-            <TextBlock Margin="5,5,5,5">Nom de la formation : </TextBlock>
-            <TextBox x:Name="tb_nomFormation" MinWidth="150"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Margin="5,5,5,5">Durée de la formation :</TextBlock>
-            <TextBox x:Name="tb_dureeFormation" MinWidth="150"/>
-        </StackPanel>
-        <StackPanel Margin="5">
-            <Button x:Name="btn_ajoutFormation" Content="Ajouter" Width="100" Click="btn_ajoutFormation_Click"/>
-        </StackPanel>
-    </StackPanel>
+    </Border>
 </UserControl>

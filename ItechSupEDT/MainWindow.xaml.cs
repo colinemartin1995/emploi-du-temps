@@ -38,82 +38,141 @@ namespace ItechSupEDT
 		
         private void mi_ajout_matiere_Click(object sender, RoutedEventArgs e)
         {
-            AjoutMatiere ajoutMatiere = new AjoutMatiere();
+            AjoutMatiere ajoutMatiere = new AjoutMatiere(GetFormations());
             this.Ajout.Content = ajoutMatiere;
         }
 
         private void mi_ajout_promotion_Click(object sender, RoutedEventArgs e)
         {
-            List<Nameable> lstEleves = new List<Nameable>();
-            AjoutPromotion ajoutPromotion = new AjoutPromotion(new List<Formation>(), lstEleves);
+            AjoutPromotion ajoutPromotion = new AjoutPromotion(GetFormations());
             this.Ajout.Content = ajoutPromotion;
         }
-
         private void mi_ajout_formateur_Click(object sender, RoutedEventArgs e)
         {
-            List<Nameable> lstMatiere = new List<Nameable>();
-            AjoutFormateur ajoutFormateur = new AjoutFormateur(lstMatiere);
-            this.Ajout.Content = ajoutFormateur;
+            //AjoutFormateur ajoutFormateur = new AjoutFormateur(GetMatieres());
+            //this.Ajout.Content = ajoutFormateur;
         }
 
-        private void mi_afficher_formation_Click(object sender, RoutedEventArgs e)
+        private List<Formation> GetFormations()
         {
+            List<Formation> lstFormations = new List<Formation>();
             this.error_message.Text = "";
             String nom = "";
+            int id;
             float nbHeures = 0;
             try
             {
                 SqlCommand cmd = new SqlCommand();
                 SqlDataReader reader;
 
-                cmd.CommandText = "SELECT Nom, NbHeuresTotal FROM Formation WHERE Id = 1;";
+                cmd.CommandText = "SELECT Id, Nom, NbHeuresTotal FROM Formation;";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
                 reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
+                    id = int.Parse(reader["Id"].ToString());
                     nom = reader["Nom"].ToString();
                     nbHeures = float.Parse(reader["NbHeuresTotal"].ToString());
+                    lstFormations.Add(new Formation(id, nom, nbHeures));
                 }
                 reader.Close();
             }
             catch (Exception error)
             {
                 this.error_message.Text = error.Message;
-                return;
+                return null;
             }
-            Formation formation = new Modele.Formation(nom, nbHeures);
-            Ajout_UC.AjoutFormation ajoutFormation = new Ajout_UC.AjoutFormation(formation);
-            this.Ajout.Content = ajoutFormation;
+            return lstFormations;
+        }
+
+        //private List<Matiere> GetMatieres()
+        //{
+        //    List<Matiere> lstMatieres = new List<Matiere>();
+        //    this.error_message.Text = "";
+        //    String nom = "";
+        //    try
+        //    {
+        //        SqlCommand cmd = new SqlCommand();
+        //        SqlDataReader reader;
+
+        //        cmd.CommandText = "SELECT Nom FROM Matiere;";
+        //        cmd.CommandType = CommandType.Text;
+        //        cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
+        //        reader = cmd.ExecuteReader();
+        //        while (reader.Read())
+        //        {
+        //            nom = reader["Nom"].ToString();
+        //            lstMatieres.Add(new Matiere(nom));
+        //        }
+        //        reader.Close();
+        //    }
+        //    catch (Exception error)
+        //    {
+        //        this.error_message.Text = error.Message;
+        //        return null;
+        //    }
+        //    return lstMatieres;
+        //}
+
+        private void mi_afficher_formation_Click(object sender, RoutedEventArgs e)
+        {
+            //this.error_message.Text = "";
+            //String nom = "";
+            //float nbHeures = 0;
+            //try
+            //{
+            //    SqlCommand cmd = new SqlCommand();
+            //    SqlDataReader reader;
+
+            //    cmd.CommandText = "SELECT Nom, NbHeuresTotal FROM Formation WHERE Id = 1;";
+            //    cmd.CommandType = CommandType.Text;
+            //    cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
+            //    reader = cmd.ExecuteReader();
+            //    while (reader.Read())
+            //    {
+            //        nom = reader["Nom"].ToString();
+            //        nbHeures = float.Parse(reader["NbHeuresTotal"].ToString());
+            //    }
+            //    reader.Close();
+            //}
+            //catch (Exception error)
+            //{
+            //    this.error_message.Text = error.Message;
+            //    return;
+            //}
+            //Formation formation = new Modele.Formation(nom, nbHeures);
+            //Ajout_UC.AjoutFormation ajoutFormation = new Ajout_UC.AjoutFormation(formation);
+            //this.Ajout.Content = ajoutFormation;
         }
 
         private void mi_afficher_matiere_Click(object sender, RoutedEventArgs e)
         {
-            this.error_message.Text = "";
-            String nom = "";
-            try
-            {
-                SqlCommand cmd = new SqlCommand();
-                SqlDataReader reader;
+            //this.error_message.Text = "";
+            //String nom = "";
+            //try
+            //{
+            //    SqlCommand cmd = new SqlCommand();
+            //    SqlDataReader reader;
 
-                cmd.CommandText = "SELECT Nom FROM Matiere WHERE Id = 1;";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
-                reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    nom = reader["Nom"].ToString();
-                }
-                reader.Close();
-            }
-            catch (Exception error)
-            {
-                this.error_message.Text = error.Message;
-                return;
-            }
-            Matiere matiere = new Matiere(nom);
-            Ajout_UC.AjoutMatiere ajoutMatiere = new Ajout_UC.AjoutMatiere(matiere);
-            this.Ajout.Content = ajoutMatiere;
+            //    cmd.CommandText = "SELECT Nom FROM Matiere WHERE Id = 1;";
+            //    cmd.CommandType = CommandType.Text;
+            //    cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
+            //    reader = cmd.ExecuteReader();
+            //    while (reader.Read())
+            //    {
+            //        nom = reader["Nom"].ToString();
+            //    }
+            //    reader.Close();
+            //}
+            //catch (Exception error)
+            //{
+            //    this.error_message.Text = error.Message;
+            //    return;
+            //}
+            //Matiere matiere = new Matiere(nom);
+            //Ajout_UC.AjoutMatiere ajoutMatiere = new Ajout_UC.AjoutMatiere(matiere);
+            //this.Ajout.Content = ajoutMatiere;
         }
     }
 }

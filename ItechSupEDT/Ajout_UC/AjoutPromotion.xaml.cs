@@ -16,6 +16,7 @@ using ItechSupEDT.Modele;
 using ItechSupEDT.Ajout_UC;
 using System.Data.SqlClient;
 using System.Data;
+using ItechSupEDT.DAO;
 
 namespace ItechSupEDT.Ajout_UC
 {
@@ -30,7 +31,7 @@ namespace ItechSupEDT.Ajout_UC
             get { return this.lstFormations; }
             set { this.lstFormations = value; }
         }
-        public AjoutPromotion(List<Formation> _lstFormations, List<Nameable> _lstEleve)
+        public AjoutPromotion(List<Formation> _lstFormations)
         {
             InitializeComponent();
 
@@ -44,39 +45,37 @@ namespace ItechSupEDT.Ajout_UC
                 this.cb_lstFormations.ItemsSource = this.LstFormations.Keys;
                 this.cb_lstFormations.SelectedIndex = 0;
             }
-            
-            MutliSelectPickList multiSelect = new MutliSelectPickList(this.getListEleves());
-            this.MultiSelect.Content = multiSelect;
         }
 
-        public List<MultiSelectedObject> getListEleves()
+        private void btn_Valider_Click(object sender, RoutedEventArgs e)
         {
-            List<MultiSelectedObject> lstResult = new List<MultiSelectedObject>();
-            String nom = "";
-            String prenom = "";
-            String mail = "";
+            if (this.tbk_error.Visibility == Visibility.Visible)
+            {
+                this.tbk_error.Text = "";
+                this.tbk_error.Visibility = Visibility.Collapsed;
+            }
+            if (this.tbk_statut.Visibility == Visibility.Visible)
+            {
+                this.tbk_statut.Text = "";
+                this.tbk_statut.Visibility = Visibility.Collapsed;
+            }
+
+            string nom = this.tb_nom.Text;
+            DateTime _dateDebut = this.dp_dateDebut.SelectedDate.GetValueOrDefault();
+            DateTime _dateFin = this.dp_dateFin.SelectedDate.GetValueOrDefault();
+            Formation _formation = LstFormations[(String)(this.cb_lstFormations.SelectedItem)];
             try
             {
-                SqlCommand cmd = new SqlCommand();
-                SqlDataReader reader;
-
-                cmd.CommandText = "SELECT * FROM Eleve;";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
-                reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    nom = reader["Nom"].ToString();
-                    prenom = reader["prenom"].ToString();
-                    mail = reader["mail"].ToString();
-                    lstResult.Add((MultiSelectedObject)new Eleve(nom, prenom, mail));
-                }
+                Promotion promotion = PromotionDAO.CreerPromotion(nom, _dateDebut, _dateFin, _formation);
             }
             catch (Exception error)
             {
-                return null;
+                this.tbk_error.Text = "Erreur : " + error.Message;
+                this.tbk_error.Visibility = Visibility.Visible;
+                return;
             }
-            return lstResult;
+            this.tbk_statut.Text = "Promotion Ajoutée.";
+            this.tbk_statut.Visibility = Visibility.Visible;
         }
     }
 }

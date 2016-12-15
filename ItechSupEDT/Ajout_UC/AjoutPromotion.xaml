@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ItechSupEDT.Ajout_UC"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
+    <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10">
         <StackPanel>
             <TextBlock Text="Ajouter une promotion" HorizontalAlignment="Center"/>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
@@ -25,7 +25,9 @@
                 <TextBlock Text="Formation :" Margin="10,10,0,10"/>
                 <ComboBox x:Name="cb_lstFormations" Margin="10,10,0,10"/>
             </StackPanel>
-            <ContentControl x:Name="MultiSelect"/>
+            <Button x:Name="btn_Valider" Content="Valider" Width="75" Click="btn_Valider_Click"/>
+            <TextBlock Name="tbk_error" HorizontalAlignment="Center" Visibility="Collapsed" Foreground="Red" />
+            <TextBlock Name="tbk_statut" HorizontalAlignment="Center" Visibility="Collapsed"/>
         </StackPanel>
     </Border>
 </UserControl>

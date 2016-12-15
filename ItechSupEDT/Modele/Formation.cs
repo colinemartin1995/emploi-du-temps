@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 
 namespace ItechSupEDT.Modele
 {
-    public class Formation : MultiSelectedObject
+    public class Formation : Nameable
     {
+        private int id;
         private String nom;
         private float nbHeuresTotal;
         private List<Promotion> lstPromotions;
         private List<Matiere> lstMatiere;
+        public int Id
+        {
+            get { return this.id; }
+        }
         public String Nom
         {
             get { return this.nom; }
@@ -32,18 +37,12 @@ namespace ItechSupEDT.Modele
             get { return this.lstMatiere; }
             set { this.lstMatiere = value; }
         }
-        public Formation(String _nom, float _nbHeuresTotal)
+        public Formation(int _id, String _nom, float _nbHeuresTotal)
         {
+            this.id = _id;
             this.Nom = _nom;
             this.NbHeuresTotal = _nbHeuresTotal;
             this.LstMatiere = new List<Matiere>();
-            this.LstPromotions = new List<Promotion>();
-        }
-        public Formation(String _nom, float _nbHeuresTotal, List<Matiere> _lstMatiere)
-        {
-            this.Nom = _nom;
-            this.NbHeuresTotal = _nbHeuresTotal;
-            this.LstMatiere = _lstMatiere;
             this.LstPromotions = new List<Promotion>();
         }
         public class FormationException : Exception
@@ -52,7 +51,6 @@ namespace ItechSupEDT.Modele
             {
             }
         }
-
         public string getNom()
         {
             return this.Nom;

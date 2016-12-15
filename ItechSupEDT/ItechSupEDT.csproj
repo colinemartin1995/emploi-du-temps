@@ -105,6 +105,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DAO\FormationDAO.cs" />
+    <Compile Include="DAO\MatiereDAO.cs" />
+    <Compile Include="DAO\PromotionDAO.cs" />
+    <Compile Include="DAO\SalleDAO.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

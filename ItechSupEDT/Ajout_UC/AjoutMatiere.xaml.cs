@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using ItechSupEDT.Modele;
 using System.Data.SqlClient;
 using System.Data;
+using ItechSupEDT.DAO;
 
 namespace ItechSupEDT.Ajout_UC
 {
@@ -23,68 +24,60 @@ namespace ItechSupEDT.Ajout_UC
     /// </summary>
     public partial class AjoutMatiere : UserControl
     {
-
-        private List<Matiere> lstMatiere;
-        public List<Matiere> LstMatiere
-        {
-            get { return this.lstMatiere; }
-            set { this.lstMatiere = value; }
-        }
-
-        public AjoutMatiere()
+        public AjoutMatiere(List<Formation> _lstFormation)
         {
             InitializeComponent();
-            this.LstMatiere = new List<Matiere>();
-            this.sp_valider.Visibility = Visibility.Collapsed;
+            List<Nameable> lstNameable = new List<Nameable>();
+            foreach (Formation form in _lstFormation)
+            {
+                lstNameable.Add((Nameable)form);
+            }
+            MutliSelectPickList multiSelect = new MutliSelectPickList(lstNameable);
+            this.MultiSelect.Content = multiSelect;
         }
 
-        public AjoutMatiere(Matiere _matiere)
+        public AjoutMatiere(Matiere _matiere, List<Formation> _lstFormation)
         {
             InitializeComponent();
-            this.LstMatiere = new List<Matiere>();
-            this.sp_valider.Visibility = Visibility.Collapsed;
             this.tb_nomMatiere.Text = _matiere.Nom;
+            List<Nameable> lstNameable = new List<Nameable>();
+            foreach (Formation form in _lstFormation)
+            {
+                lstNameable.Add((Nameable)form);
+            }
+            MutliSelectPickList multiSelect = new MutliSelectPickList(lstNameable);
+            this.MultiSelect.Content = multiSelect;
         }
 
         private void btn_valider_Click(object sender, RoutedEventArgs e)
         {
-            if (this.tb_nomMatiere.Text == "")
-            {
-                this.tbk_error.Text = "Le nom de la matière est vide.";
-                this.tbk_error.Visibility = Visibility.Visible;
-                return;
-            }
-            if (tbk_error.Text != "")
+            if (this.tbk_error.Visibility == Visibility.Visible)
             {
                 this.tbk_error.Text = "";
                 this.tbk_error.Visibility = Visibility.Collapsed;
             }
-            this.LstMatiere.Add(new Matiere(this.tb_nomMatiere.Text));
+            if (this.tbk_statut.Visibility == Visibility.Visible)
+            {
+                this.tbk_statut.Text = "";
+                this.tbk_statut.Visibility = Visibility.Collapsed;
+            }
+            List<Formation> lstSelectedFormation = new List<Formation>();
+            foreach (Nameable nam in ((MutliSelectPickList)this.MultiSelect.Content).GetSelectedObjects())
+            {
+                lstSelectedFormation.Add((Formation)nam);
+            }
             try
             {
-                SqlCommand cmd = new SqlCommand();
-
-                cmd.CommandText = "INSERT INTO Matiere (Nom) VALUES (\'" + this.tb_nomMatiere.Text + "\');";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
-                tbk_error.Text = cmd.CommandText;
-                cmd.ExecuteReader();
+                Matiere formation = MatiereDAO.CreerMatiere(this.tb_nomMatiere.Text, lstSelectedFormation);
             }
             catch (Exception error)
             {
-                tbk_error.Text += error.Message;
+                this.tbk_error.Text = "Erreur : " + error.Message;
                 this.tbk_error.Visibility = Visibility.Visible;
                 return;
             }
-            this.tb_nomMatiere.Text = "";
-            this.tbk_retourMessage.Text = "Matière Ajoutée";
-            this.sp_Ajout.Visibility = Visibility.Collapsed;
-            this.sp_valider.Visibility = Visibility.Visible;
-        }
-        private void btn_nouveau_Click(object sender, RoutedEventArgs e)
-        {
-            this.sp_valider.Visibility = Visibility.Collapsed;
-            this.sp_Ajout.Visibility = Visibility.Visible;
+            this.tbk_statut.Text = "Matière Ajoutée.";
+            this.tbk_statut.Visibility = Visibility.Visible;
         }
     }
 }

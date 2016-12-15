@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using ItechSupEDT.Modele;
 using System.Data.SqlClient;
 using System.Data;
+using ItechSupEDT.DAO;
 
 namespace ItechSupEDT.Ajout_UC
 {
@@ -37,39 +38,27 @@ namespace ItechSupEDT.Ajout_UC
 
         private void btn_ajoutFormation_Click(object sender, RoutedEventArgs e)
         {
-            String nom = tb_nomFormation.Text;
-            String nbHeures = tb_dureeFormation.Text;
+            if (this.tbk_error.Visibility == Visibility.Visible)
+            {
+                this.tbk_error.Text = "";
+                this.tbk_error.Visibility = Visibility.Collapsed;
+            }
+            if (this.tbk_statut.Visibility == Visibility.Visible)
+            {
+                this.tbk_statut.Text = "";
+                this.tbk_statut.Visibility = Visibility.Collapsed;
+            }
             try
             {
-                float duree = Single.Parse(nbHeures);
-                try
-                {
-                    Formation formation = new Formation(nom, duree);
-                }
-                catch (Formation.FormationException error)
-                {
-                    tbk_errorMessage.Text = error.Message;
-                }
-                try
-                {
-                    SqlCommand cmd = new SqlCommand();
-
-                    cmd.CommandText = "INSERT INTO Formation (Nom, NbHeuresTotal) VALUES (\'" + nom + "\'," + duree + ");";
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
-                    tbk_errorMessage.Text = cmd.CommandText;
-                    cmd.ExecuteReader();
-                }
-                catch (Exception error)
-                {
-                    tbk_errorMessage.Text += error.Message;
-                }
+                Formation formation = FormationDAO.CreerFormation(tb_nomFormation.Text, tb_dureeFormation.Text);
             }
-            catch(Exception)
+            catch(Exception error)
             {
-                tbk_errorMessage.Text = "Désolé, une erreur est survenu lors de l'ajout de la formation, veuillez vérifier les informations renseignées et recommencer.";
+                this.tbk_error.Text = "Erreur : " + error.Message + ".";
+                this.tbk_error.Visibility = Visibility.Visible;
             }
-            
+            this.tbk_statut.Text = "Formation Ajoutée.";
+            this.tbk_statut.Visibility = Visibility.Visible;
         }
     }
 }

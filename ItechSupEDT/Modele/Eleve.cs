@@ -39,13 +39,6 @@ namespace ItechSupEDT.Modele
             get { return this.lstAbsences; }
             set { this.lstAbsences = value; }
         }
-        public Eleve(String _nom, String _prenom, String _mail)
-        {
-            this.Nom = _nom;
-            this.Prenom = _prenom;
-            this.Mail = _mail;
-            this.LstAbsences = new List<Absence>();
-        }
         public Eleve(String _nom, String _prenom, String _mail, Promotion _promo)
         {
             this.Nom = _nom;

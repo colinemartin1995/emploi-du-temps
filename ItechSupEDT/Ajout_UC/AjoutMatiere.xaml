@@ -14,13 +14,11 @@
                     <TextBlock Text="Nom :" HorizontalAlignment="Center" Margin="10,10,0,10"/>
                     <TextBox Name="tb_nomMatiere" MinWidth="100" Margin="10"/>
                 </StackPanel>
+                <ContentControl x:Name="MultiSelect"/>
                 <Button x:Name="btn_Valider" Content="Valider" Width="75" Click="btn_valider_Click"/>
             </StackPanel>
-            <StackPanel x:Name="sp_valider" HorizontalAlignment="Center">
-                <TextBlock x:Name="tbk_retourMessage" HorizontalAlignment="Center" Margin="10,10,10,0"/>
-                <Button x:Name="btn_nouveau" Content="Nouvelle Matière" Width="75" Click="btn_nouveau_Click" MinWidth="100" Margin="10,10,10,10"/>
-            </StackPanel>
             <TextBlock Name="tbk_error" HorizontalAlignment="Center" Visibility="Collapsed" Foreground="Red" />
+            <TextBlock Name="tbk_statut" HorizontalAlignment="Center" Visibility="Collapsed"/>
         </StackPanel>
     </Border>
 </UserControl>
