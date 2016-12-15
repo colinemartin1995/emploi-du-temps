@@ -174,5 +174,11 @@ namespace ItechSupEDT
             //Ajout_UC.AjoutMatiere ajoutMatiere = new Ajout_UC.AjoutMatiere(matiere);
             //this.Ajout.Content = ajoutMatiere;
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            AjoutSalle ajoutSalle = new AjoutSalle();
+            this.Ajout.Content = ajoutSalle;
+        }
     }
 }

@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="ItechSupEDT.Ajout_UC.AjoutSalle"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ItechSupEDT.Ajout_UC"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Border HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" BorderThickness="1,1,1,1" BorderBrush="Black">
+        <StackPanel>
+            <StackPanel x:Name="sp_Ajout" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Ajouter une Salle" HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Nom :" HorizontalAlignment="Center" Margin="10,10,0,10"/>
+                    <TextBox Name="tb_nomSalle" MinWidth="100" Margin="10"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Capacité :" HorizontalAlignment="Center" Margin="10,10,0,10"/>
+                    <TextBox Name="tb_capaciteSalle" MinWidth="100" Margin="10"/>
+                </StackPanel>
+                <Button x:Name="btn_Valider" Content="Valider" Width="75" Click="btn_Valider_Click"/>
+            </StackPanel>
+            <TextBlock Name="tbk_error" HorizontalAlignment="Center" Visibility="Collapsed" Foreground="Red" />
+        </StackPanel>
+    </Border>
+</UserControl>

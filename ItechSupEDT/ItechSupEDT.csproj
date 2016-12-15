@@ -75,6 +75,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Ajout_UC\AjoutSalle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Ajout_UC\MutliSelectPickList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -97,6 +101,9 @@
     </Compile>
     <Compile Include="Ajout_UC\AjoutPromotion.xaml.cs">
       <DependentUpon>AjoutPromotion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ajout_UC\AjoutSalle.xaml.cs">
+      <DependentUpon>AjoutSalle.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ajout_UC\MutliSelectPickList.xaml.cs">
       <DependentUpon>MutliSelectPickList.xaml</DependentUpon>
