@@ -86,6 +86,43 @@ namespace ItechSupEDT
             return lstFormations;
         }
 
+        private List<Promotion> GetPromotions()
+        {
+            // TODO Récuperer les promotions (sans l'id formation)
+            // Nouveau constructeur dans promotion qui ne prend pas de formation
+            // Envoyer cette liste de promotions dans l'ajout d'élèves et finir l'ajout d'élèves
+            List<Promotion> lstFormations = new List<Promotion>();
+            this.error_message.Text = "";
+            String nom = "";
+            DateTime dateDebut;
+            DateTime dateFin;
+            int id;
+            float nbHeures = 0;
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+                SqlDataReader reader;
+
+                cmd.CommandText = "SELECT Id, Nom, NbHeuresTotal FROM Formation;";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    id = int.Parse(reader["Id"].ToString());
+                    nom = reader["Nom"].ToString();
+                    nbHeures = float.Parse(reader["NbHeuresTotal"].ToString());
+                }
+                reader.Close();
+            }
+            catch (Exception error)
+            {
+                this.error_message.Text = error.Message;
+                return null;
+            }
+            return lstFormations;
+        }
+
         //private List<Matiere> GetMatieres()
         //{
         //    List<Matiere> lstMatieres = new List<Matiere>();

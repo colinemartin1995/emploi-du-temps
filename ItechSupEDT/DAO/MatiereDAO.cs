@@ -39,8 +39,6 @@ namespace ItechSupEDT.DAO
                 throw e;
             }
 
-            // INSERER LES Formation_matiere
-
             try
             {
                 SqlCommand cmd = new SqlCommand();
@@ -53,7 +51,6 @@ namespace ItechSupEDT.DAO
 
                 foreach (Formation formation in matiere.LstFormations)
                 {
-                    // TODO concatener un incrément a la fin des paramètres;
                     String formationIdParamName = "@Formation_id" + i;
                     String MatiereIdParamName = "@Matiere_id" + i;
                     cmd.CommandText += "(" + formationIdParamName + ", " + MatiereIdParamName + "),";

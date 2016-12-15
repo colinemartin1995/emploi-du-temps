@@ -112,6 +112,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DAO\EleveDAO.cs" />
     <Compile Include="DAO\FormationDAO.cs" />
     <Compile Include="DAO\MatiereDAO.cs" />
     <Compile Include="DAO\PromotionDAO.cs" />

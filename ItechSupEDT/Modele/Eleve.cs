@@ -9,11 +9,16 @@ namespace ItechSupEDT.Modele
 {
     public class Eleve : Nameable
     {
+        private int id;
         private String nom;
         private String prenom;
         private String mail;
         private Promotion promotion;
         private List<Absence> lstAbsences;
+        public int Id
+        {
+            get { return this.id; }
+        }
         public String Nom
         {
             get { return this.nom; }
@@ -39,8 +44,9 @@ namespace ItechSupEDT.Modele
             get { return this.lstAbsences; }
             set { this.lstAbsences = value; }
         }
-        public Eleve(String _nom, String _prenom, String _mail, Promotion _promo)
+        public Eleve(int _id, String _nom, String _prenom, String _mail, Promotion _promo)
         {
+            this.id = _id;
             this.Nom = _nom;
             this.Prenom = _prenom;
             this.Mail = _mail;
