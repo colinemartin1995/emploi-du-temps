@@ -26,7 +26,11 @@
                 </MenuItem>
             </Menu>
         </StackPanel>
-        <ContentControl x:Name="Ajout"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ContentControl x:Name="Ajout"/>
+            <TextBlock Name="error_message"/>
+        </StackPanel>
+        
 
     </DockPanel>
 

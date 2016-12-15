@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ItechSupEDT.Modele;
 using ItechSupEDT.Ajout_UC;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace ItechSupEDT.Ajout_UC
 {
@@ -42,8 +44,39 @@ namespace ItechSupEDT.Ajout_UC
                 this.cb_lstFormations.ItemsSource = this.LstFormations.Keys;
                 this.cb_lstFormations.SelectedIndex = 0;
             }
-            MutliSelectPickList multiSelect = new MutliSelectPickList(_lstEleve);
+            
+            MutliSelectPickList multiSelect = new MutliSelectPickList(this.getListEleves());
             this.MultiSelect.Content = multiSelect;
+        }
+
+        public List<MultiSelectedObject> getListEleves()
+        {
+            List<MultiSelectedObject> lstResult = new List<MultiSelectedObject>();
+            String nom = "";
+            String prenom = "";
+            String mail = "";
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+                SqlDataReader reader;
+
+                cmd.CommandText = "SELECT * FROM Eleve;";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    nom = reader["Nom"].ToString();
+                    prenom = reader["prenom"].ToString();
+                    mail = reader["mail"].ToString();
+                    lstResult.Add((MultiSelectedObject)new Eleve(nom, prenom, mail));
+                }
+            }
+            catch (Exception error)
+            {
+                return null;
+            }
+            return lstResult;
         }
     }
 }

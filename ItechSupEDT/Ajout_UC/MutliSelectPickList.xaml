@@ -7,14 +7,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <ListView x:Name="lv_listeObject" HorizontalAlignment="Center" Margin="5">
+        <ListView x:Name="lv_listeObject" HorizontalAlignment="Center" MinWidth="{Binding ActualWidth, ElementName=lv_selectedObject}" Margin="5">
         </ListView>
         <StackPanel VerticalAlignment="Center">
             <Button x:Name="btn_push" Content="Ajouter" Margin="5" Click="btn_push_Click"/>
             <Button x:Name="btn_pull" Content="Retirer" Margin="5" Click="btn_pull_Click"/>
         </StackPanel>
-
-        <ListView x:Name="lv_selectedObject" HorizontalAlignment="Center" Margin="5">
+        <ListView x:Name="lv_selectedObject" HorizontalAlignment="Center" Margin="5" MinWidth="{Binding ActualWidth, ElementName=lv_listeObject}">
         </ListView>
     </StackPanel>
 </UserControl>

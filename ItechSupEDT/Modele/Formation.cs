@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ItechSupEDT.Modele
 {
-    public class Formation
+    public class Formation : MultiSelectedObject
     {
         private String nom;
         private float nbHeuresTotal;
@@ -51,6 +51,11 @@ namespace ItechSupEDT.Modele
             public FormationException(string message) : base(message)
             {
             }
+        }
+
+        public string getNom()
+        {
+            return this.Nom;
         }
     }
 }
