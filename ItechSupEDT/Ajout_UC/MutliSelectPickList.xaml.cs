@@ -23,57 +23,59 @@ namespace ItechSupEDT.Ajout_UC
     public partial class MutliSelectPickList : UserControl 
     {
         private ObservableCollection<String> objectList;
-        private ObservableCollection<String> lstNom;
-        private List<MultiSelectedObject> maList;
+        private ObservableCollection<String> selectedList;
+        private List<Nameable> maList;
+        private Dictionary<String, Nameable> nameToObject;
 
-        public List<MultiSelectedObject> MaList
+        public List<Nameable> MaList
         {
             get { return maList; }
             set { maList = value; }
         }
-
-        /**private DependencyProperty multiSelectObject;
-
-        public List<MultiSelectedObject> MultiSelectObject
-        {
-            get { return (List<MultiSelectedObject>)GetValue(multiSelectObject); }
-            set { SetValue(multiSelectObject, value); }
-        }**/
-        public MutliSelectPickList(List<MultiSelectedObject> _maList)
+        public MutliSelectPickList(List<Nameable> _maList)
         {
             InitializeComponent();
+            nameToObject = new Dictionary<String, Nameable>();
             objectList = new ObservableCollection<String>();
-            lstNom = new ObservableCollection<String>();
+            selectedList = new ObservableCollection<String>();
             this.MaList = _maList;
-            foreach(MultiSelectedObject objet in this.MaList)
+            foreach(Nameable objet in this.MaList)
             {
                 this.objectList.Add(objet.getNom());
+                this.nameToObject.Add(objet.getNom(), objet);
             }
             this.SetListview();
         }
-
         private void SetListview()
         {
             lv_listeObject.ItemsSource = this.objectList;
-            lv_selectedObject.ItemsSource = this.lstNom;
+            lv_selectedObject.ItemsSource = this.selectedList;
         }
+        public List<Nameable> GetSelectedObjects()
+        {
+            List<Nameable> lstRetour = new List<Nameable>();
+            foreach (String name in this.selectedList)
+            {
+                lstRetour.Add(this.nameToObject[name]);
+            }
 
+            return lstRetour;
+        }
         private void btn_push_Click(object sender, RoutedEventArgs e)
         {
             if(lv_listeObject.SelectedItem != null)
             {
-                lstNom.Add(lv_listeObject.SelectedItem.ToString());
+                selectedList.Add(lv_listeObject.SelectedItem.ToString());
                 objectList.Remove(lv_listeObject.SelectedItem.ToString());
                 this.SetListview();
             }
         }
-
         private void btn_pull_Click(object sender, RoutedEventArgs e)
         {
             if (lv_selectedObject.SelectedItem != null)
             {
                 objectList.Add(lv_selectedObject.SelectedItem.ToString());
-                lstNom.Remove(lv_selectedObject.SelectedItem.ToString());
+                selectedList.Remove(lv_selectedObject.SelectedItem.ToString());
                 this.SetListview();
             }
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ItechSupEDT.Modele
 {
-    public class Matiere : MultiSelectedObject
+    public class Matiere : Nameable
     {
         private String nom;
         private List<Formation> lstFormations;

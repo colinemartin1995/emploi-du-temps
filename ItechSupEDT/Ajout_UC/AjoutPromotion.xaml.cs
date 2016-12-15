@@ -30,7 +30,7 @@ namespace ItechSupEDT.Ajout_UC
             get { return this.lstFormations; }
             set { this.lstFormations = value; }
         }
-        public AjoutPromotion(List<Formation> _lstFormations, List<MultiSelectedObject> _lstEleve)
+        public AjoutPromotion(List<Formation> _lstFormations, List<Nameable> _lstEleve)
         {
             InitializeComponent();
 

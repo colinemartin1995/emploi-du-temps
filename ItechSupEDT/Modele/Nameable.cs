@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ItechSupEDT.Modele
 {
-    public interface MultiSelectedObject
+    public interface Nameable
     {
         String getNom();
     }

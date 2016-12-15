@@ -118,7 +118,7 @@
     <Compile Include="Modele\Formateur.cs" />
     <Compile Include="Modele\Formation.cs" />
     <Compile Include="Modele\Matiere.cs" />
-    <Compile Include="Modele\MultiSelectedObject.cs" />
+    <Compile Include="Modele\Nameable.cs" />
     <Compile Include="Modele\Promotion.cs" />
     <Compile Include="Modele\Salle.cs" />
     <Compile Include="Modele\Session.cs" />

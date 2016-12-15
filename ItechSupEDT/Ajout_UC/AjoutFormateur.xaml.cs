@@ -22,7 +22,7 @@ namespace ItechSupEDT.Ajout_UC
     /// </summary>
     public partial class AjoutFormateur : UserControl
     {
-        public AjoutFormateur(List<MultiSelectedObject> _lstMatiere)
+        public AjoutFormateur(List<Nameable> _lstMatiere)
         {
             InitializeComponent();
             MutliSelectPickList multiSelect = new MutliSelectPickList(_lstMatiere);
