@@ -11,7 +11,7 @@ namespace ItechSupEDT.DAO
 {
     public static class SalleDAO
     {
-        public static Salle CreerPromotion(String nom, String capaciteStr)
+        public static Salle CreerSalle(String nom, String capaciteStr)
         {
             int capacite;
             if (nom == null)

@@ -21,6 +21,7 @@
                 <Button x:Name="btn_Valider" Content="Valider" Width="75" Click="btn_Valider_Click"/>
             </StackPanel>
             <TextBlock Name="tbk_error" HorizontalAlignment="Center" Visibility="Collapsed" Foreground="Red" />
+            <TextBlock Name="tbk_statut" HorizontalAlignment="Center" Visibility="Collapsed"/>
         </StackPanel>
     </Border>
 </UserControl>

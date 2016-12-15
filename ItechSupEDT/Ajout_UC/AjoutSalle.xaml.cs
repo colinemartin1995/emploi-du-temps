@@ -12,12 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ItechSupEDT.Modele;
+using ItechSupEDT.DAO;
 
 namespace ItechSupEDT.Ajout_UC
 {
-    /// <summary>
-    /// Interaction logic for AjoutSalle.xaml
-    /// </summary>
     public partial class AjoutSalle : UserControl
     {
         public AjoutSalle()
@@ -27,7 +26,31 @@ namespace ItechSupEDT.Ajout_UC
 
         private void btn_Valider_Click(object sender, RoutedEventArgs e)
         {
+            if (this.tbk_error.Visibility == Visibility.Visible)
+            {
+                this.tbk_error.Text = "";
+                this.tbk_error.Visibility = Visibility.Collapsed;
+            }
+            if (this.tbk_statut.Visibility == Visibility.Visible)
+            {
+                this.tbk_statut.Text = "";
+                this.tbk_statut.Visibility = Visibility.Collapsed;
+            }
 
+            string nom = this.tb_nomSalle.Text;
+            string capacite = this.tb_capaciteSalle.Text;
+            try
+            {
+                Salle promotion = SalleDAO.CreerSalle(nom, capacite);
+            }
+            catch (Exception error)
+            {
+                this.tbk_error.Text = "Erreur : " + error.Message;
+                this.tbk_error.Visibility = Visibility.Visible;
+                return;
+            }
+            this.tbk_statut.Text = "Salle Ajoutée.";
+            this.tbk_statut.Visibility = Visibility.Visible;
         }
     }
 }
