@@ -180,5 +180,11 @@ namespace ItechSupEDT
             AjoutSalle ajoutSalle = new AjoutSalle();
             this.Ajout.Content = ajoutSalle;
         }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            AjoutEleve ajoutEleve = new AjoutEleve();
+            this.Ajout.Content = ajoutEleve;
+        }
     }
 }
