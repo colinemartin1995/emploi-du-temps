@@ -14,9 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ItechSupEDT.Ajout_UC;
 using ItechSupEDT.Modele;
-using System.Data.SqlClient;
-using System.Data;
-using ItechSupEDT.DAO;
+using ItechSupEDT.Outils;
 
 namespace ItechSupEDT
 {
@@ -39,38 +37,26 @@ namespace ItechSupEDT
 		
         private void mi_ajout_matiere_Click(object sender, RoutedEventArgs e)
         {
-            AjoutMatiere ajoutMatiere = new AjoutMatiere(FormationDAO.GetAll());
+            AjoutMatiere ajoutMatiere = new AjoutMatiere();
             this.Ajout.Content = ajoutMatiere;
         }
 
         private void mi_ajout_promotion_Click(object sender, RoutedEventArgs e)
         {
-            AjoutPromotion ajoutPromotion = new AjoutPromotion(FormationDAO.GetAll());
+            List<Nameable> lstEleves = new List<Nameable>();
+            AjoutPromotion ajoutPromotion = new AjoutPromotion();
             this.Ajout.Content = ajoutPromotion;
         }
+
         private void mi_ajout_formateur_Click(object sender, RoutedEventArgs e)
         {
-            AjoutFormateur ajoutFormateur = new AjoutFormateur(MatiereDAO.GetAll());
+            List<Nameable> lstMatiere = new List<Nameable>();
+            foreach (Matiere element in MatiereDAO.ListerMatieres())
+            {
+                lstMatiere.Add((Nameable)element);
+            }
+            AjoutFormateur ajoutFormateur = new AjoutFormateur(lstMatiere);
             this.Ajout.Content = ajoutFormateur;
-        }
-
-        private void mi_ajout_salle_Click(object sender, RoutedEventArgs e)
-        {
-            AjoutSalle ajoutSalle = new AjoutSalle();
-            this.Ajout.Content = ajoutSalle;
-        }
-
-        private void mi_ajout_eleve_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                AjoutEleve ajoutEleve = new AjoutEleve(PromotionDAO.GetAll());
-                this.Ajout.Content = ajoutEleve;
-            }
-            catch (Exception error)
-            {
-                this.error_message.Text = error.Message;
-            }
         }
     }
 }
