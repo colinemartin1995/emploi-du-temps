@@ -39,12 +39,9 @@ namespace ItechSupEDT.Modele
             get { return this.lstFormateurs; }
             set { this.lstFormateurs = value; }
         }
-        public Matiere(String _nom, List<Formation> _lstFormations)
+        public Matiere(int _id, String _nom) : this(_id, _nom, new List<Formation>())
         {
-            this.Nom = _nom;
-            this.LstSessions = new List<Session>();
-            this.LstFormateurs = new List<Formateur>();
-            this.lstFormations = _lstFormations;
+
         }
         public Matiere(int _id, String _nom, List<Formation> _lstFormations)
         {

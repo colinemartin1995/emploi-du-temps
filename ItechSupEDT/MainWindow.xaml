@@ -14,7 +14,7 @@
                     <MenuItem x:Name="mi_ajout_formation" Header="Formation" Click="mi_ajout_formation_Click" />
                     <MenuItem x:Name="mi_ajout_matiere" Header="Matiere" Click="mi_ajout_matiere_Click"/>
                     <MenuItem x:Name="mi_ajout_promotion" Header="Promotion" Click="mi_ajout_promotion_Click"/>
-                    <MenuItem Header="Eleve" Click="MenuItem_Click_1" />
+                    <MenuItem x:Name="mi_ajout_eleve" Header="Eleve" Click="mi_ajout_eleve_Click" />
                     <MenuItem Header="Salle" Click="MenuItem_Click" />
                     <MenuItem x:Name="mi_ajout_formateur" Header="Formateur" Click="mi_ajout_formateur_Click" />
                 </MenuItem>
@@ -22,7 +22,7 @@
                     <MenuItem x:Name="mi_afficher_formation" Header="Formation" Click="mi_afficher_formation_Click"/>
                     <MenuItem x:Name="mi_afficher_matiere" Header="Matiere" Click="mi_afficher_matiere_Click"/>
                     <MenuItem x:Name="mi_afficher_promotion" Header="Promotion"/>
-                    <MenuItem Header="Eleve" />
+                    <MenuItem x:Name="mi_afficher_eleve" Header="Eleve" Click="mi_afficher_eleve_Click" />
                     <MenuItem x:Name="mi_afficher_formateur" Header="Formateur"/>
                 </MenuItem>
             </Menu>
@@ -30,9 +30,7 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <ContentControl x:Name="Ajout"/>
             <TextBlock Name="error_message"/>
-        </StackPanel>
-        
-
+        </StackPanel>   
     </DockPanel>
 
 </Window>

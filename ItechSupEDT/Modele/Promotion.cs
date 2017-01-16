@@ -59,6 +59,10 @@ namespace ItechSupEDT.Modele
             this.LstSessions = new List<Session>();
             this.LstEleves = new List<Eleve>();
         }
+        public Promotion(int _id, String _nom, DateTime _dateDebut, DateTime _dateFin) : this(_id, _nom, _dateDebut, _dateFin, null)
+        {
+
+        }
         public void AddEleve(Eleve eleve)
         {
             if (this.LstEleves.Count > 24)

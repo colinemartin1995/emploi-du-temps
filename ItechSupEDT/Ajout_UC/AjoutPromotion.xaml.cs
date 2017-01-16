@@ -43,11 +43,9 @@ namespace ItechSupEDT.Ajout_UC
                     this.LstFormations.Add(formation.Nom, formation);
                 }
                 this.cb_lstFormations.ItemsSource = this.LstFormations.Keys;
-                this.cb_lstFormations.SelectedIndex = 0;
             }
         }
-
-        private void btn_Valider_Click(object sender, RoutedEventArgs e)
+        private void SwipeMessages()
         {
             if (this.tbk_error.Visibility == Visibility.Visible)
             {
@@ -59,7 +57,10 @@ namespace ItechSupEDT.Ajout_UC
                 this.tbk_statut.Text = "";
                 this.tbk_statut.Visibility = Visibility.Collapsed;
             }
-
+        }
+        private void btn_Valider_Click(object sender, RoutedEventArgs e)
+        {
+            this.SwipeMessages();
             string nom = this.tb_nom.Text;
             DateTime _dateDebut = this.dp_dateDebut.SelectedDate.GetValueOrDefault();
             DateTime _dateFin = this.dp_dateFin.SelectedDate.GetValueOrDefault();

@@ -44,6 +44,10 @@ namespace ItechSupEDT.Modele
             get { return this.lstAbsences; }
             set { this.lstAbsences = value; }
         }
+        public Eleve(int _id, String _nom, String _prenom, String _mail) : this(_id, _nom, _prenom, _mail, null)
+        {
+
+        }
         public Eleve(int _id, String _nom, String _prenom, String _mail, Promotion _promo)
         {
             this.id = _id;
@@ -59,7 +63,7 @@ namespace ItechSupEDT.Modele
         }
         string Nameable.getNom()
         {
-            return this.Nom;
+            return this.Prenom + " " + this.Nom;
         }
     }
 }

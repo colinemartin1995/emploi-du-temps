@@ -16,6 +16,7 @@ using ItechSupEDT.Ajout_UC;
 using ItechSupEDT.Modele;
 using System.Data.SqlClient;
 using System.Data;
+using ItechSupEDT.DAO;
 
 namespace ItechSupEDT
 {
@@ -49,8 +50,8 @@ namespace ItechSupEDT
         }
         private void mi_ajout_formateur_Click(object sender, RoutedEventArgs e)
         {
-            //AjoutFormateur ajoutFormateur = new AjoutFormateur(GetMatieres());
-            //this.Ajout.Content = ajoutFormateur;
+            AjoutFormateur ajoutFormateur = new AjoutFormateur(GetMatieres());
+            this.Ajout.Content = ajoutFormateur;
         }
 
         private List<Formation> GetFormations()
@@ -88,22 +89,18 @@ namespace ItechSupEDT
 
         private List<Promotion> GetPromotions()
         {
-            // TODO Récuperer les promotions (sans l'id formation)
-            // Nouveau constructeur dans promotion qui ne prend pas de formation
-            // Envoyer cette liste de promotions dans l'ajout d'élèves et finir l'ajout d'élèves
-            List<Promotion> lstFormations = new List<Promotion>();
+            List<Promotion> lstPromotions = new List<Promotion>();
             this.error_message.Text = "";
             String nom = "";
             DateTime dateDebut;
             DateTime dateFin;
             int id;
-            float nbHeures = 0;
             try
             {
                 SqlCommand cmd = new SqlCommand();
                 SqlDataReader reader;
 
-                cmd.CommandText = "SELECT Id, Nom, NbHeuresTotal FROM Formation;";
+                cmd.CommandText = "SELECT Id, Nom, DateDebut, DateFin FROM Promotion;";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
                 reader = cmd.ExecuteReader();
@@ -111,7 +108,39 @@ namespace ItechSupEDT
                 {
                     id = int.Parse(reader["Id"].ToString());
                     nom = reader["Nom"].ToString();
-                    nbHeures = float.Parse(reader["NbHeuresTotal"].ToString());
+                    dateDebut = DateTime.Parse(reader["dateDebut"].ToString());
+                    dateFin = DateTime.Parse(reader["dateFin"].ToString());
+                    lstPromotions.Add(new Promotion(id, nom, dateDebut, dateFin));
+                }
+                reader.Close();
+            }
+            catch (Exception error)
+            {
+                throw error;
+            }
+            return lstPromotions;
+        }
+
+        private List<Matiere> GetMatieres()
+        {
+            List<Matiere> lstMatieres = new List<Matiere>();
+            this.error_message.Text = "";
+            String nom = "";
+            int id;
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+                SqlDataReader reader;
+
+                cmd.CommandText = "SELECT Id, Nom FROM Matiere;";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    id = int.Parse(reader["Id"].ToString());
+                    nom = reader["Nom"].ToString();
+                    lstMatieres.Add(new Matiere(id, nom));
                 }
                 reader.Close();
             }
@@ -120,37 +149,8 @@ namespace ItechSupEDT
                 this.error_message.Text = error.Message;
                 return null;
             }
-            return lstFormations;
+            return lstMatieres;
         }
-
-        //private List<Matiere> GetMatieres()
-        //{
-        //    List<Matiere> lstMatieres = new List<Matiere>();
-        //    this.error_message.Text = "";
-        //    String nom = "";
-        //    try
-        //    {
-        //        SqlCommand cmd = new SqlCommand();
-        //        SqlDataReader reader;
-
-        //        cmd.CommandText = "SELECT Nom FROM Matiere;";
-        //        cmd.CommandType = CommandType.Text;
-        //        cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
-        //        reader = cmd.ExecuteReader();
-        //        while (reader.Read())
-        //        {
-        //            nom = reader["Nom"].ToString();
-        //            lstMatieres.Add(new Matiere(nom));
-        //        }
-        //        reader.Close();
-        //    }
-        //    catch (Exception error)
-        //    {
-        //        this.error_message.Text = error.Message;
-        //        return null;
-        //    }
-        //    return lstMatieres;
-        //}
 
         private void mi_afficher_formation_Click(object sender, RoutedEventArgs e)
         {
@@ -218,10 +218,22 @@ namespace ItechSupEDT
             this.Ajout.Content = ajoutSalle;
         }
 
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        private void mi_ajout_eleve_Click(object sender, RoutedEventArgs e)
         {
-            AjoutEleve ajoutEleve = new AjoutEleve();
-            this.Ajout.Content = ajoutEleve;
+            try
+            {
+                AjoutEleve ajoutEleve = new AjoutEleve(GetPromotions());
+                this.Ajout.Content = ajoutEleve;
+            }
+            catch (Exception error)
+            {
+                this.error_message.Text = error.Message;
+            }
+        }
+
+        private void mi_afficher_eleve_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

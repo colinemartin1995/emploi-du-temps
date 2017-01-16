@@ -35,7 +35,6 @@ namespace ItechSupEDT.Ajout_UC
             MutliSelectPickList multiSelect = new MutliSelectPickList(lstNameable);
             this.MultiSelect.Content = multiSelect;
         }
-
         public AjoutMatiere(Matiere _matiere, List<Formation> _lstFormation)
         {
             InitializeComponent();
@@ -48,8 +47,7 @@ namespace ItechSupEDT.Ajout_UC
             MutliSelectPickList multiSelect = new MutliSelectPickList(lstNameable);
             this.MultiSelect.Content = multiSelect;
         }
-
-        private void btn_valider_Click(object sender, RoutedEventArgs e)
+        private void SwipeMessages()
         {
             if (this.tbk_error.Visibility == Visibility.Visible)
             {
@@ -61,6 +59,10 @@ namespace ItechSupEDT.Ajout_UC
                 this.tbk_statut.Text = "";
                 this.tbk_statut.Visibility = Visibility.Collapsed;
             }
+        }
+        private void btn_valider_Click(object sender, RoutedEventArgs e)
+        {
+            this.SwipeMessages();
             List<Formation> lstSelectedFormation = new List<Formation>();
             foreach (Nameable nam in ((MutliSelectPickList)this.MultiSelect.Content).GetSelectedObjects())
             {

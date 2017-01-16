@@ -20,58 +20,45 @@ namespace ItechSupEDT.DAO
 
             if (lstFormation.Count == 0)
                 throw new MatiereDAOException("Au moins une formation doit être renseignée.");
-            try
-            {
-                SqlCommand cmd = new SqlCommand();
+
+            SqlCommand cmd = new SqlCommand();
                 
-                cmd.CommandText = "INSERT INTO Matiere (Nom) output INSERTED.Id VALUES (@Nom);";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
+            cmd.CommandText = "INSERT INTO Matiere (Nom) output INSERTED.Id VALUES (@Nom);";
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
 
-                SqlParameter paramNom = new SqlParameter("Nom", SqlDbType.VarChar);
-                paramNom.Value = nom;
-                cmd.Parameters.Add(paramNom);
-                int idMatiere = (int)cmd.ExecuteScalar();
-                matiere = new Matiere(idMatiere, nom, lstFormation);
-            }
-            catch (Exception e)
+            SqlParameter paramNom = new SqlParameter("Nom", SqlDbType.VarChar);
+            paramNom.Value = nom;
+            cmd.Parameters.Add(paramNom);
+            int idMatiere = (int)cmd.ExecuteScalar();
+            matiere = new Matiere(idMatiere, nom, lstFormation);
+
+            cmd = new SqlCommand();
+
+            cmd.CommandText = "INSERT INTO Formation_matiere (Formation_id, Matiere_id) VALUES ";
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
+
+            int i = 0;
+
+            foreach (Formation formation in matiere.LstFormations)
             {
-                throw e;
+                String formationIdParamName = "@Formation_id" + i;
+                String MatiereIdParamName = "@Matiere_id" + i;
+                cmd.CommandText += "(" + formationIdParamName + ", " + MatiereIdParamName + "),";
+                SqlParameter paramFormationId = new SqlParameter(formationIdParamName, SqlDbType.Int);
+                paramFormationId.Value = formation.Id;
+                cmd.Parameters.Add(paramFormationId);
+
+                SqlParameter paramMatiereId = new SqlParameter(MatiereIdParamName, SqlDbType.Int);
+                paramMatiereId.Value = matiere.Id;
+                cmd.Parameters.Add(paramMatiereId);
+                i++;
             }
+            cmd.CommandText = cmd.CommandText.Remove(cmd.CommandText.Length - 1);
+            cmd.CommandText += ";";
 
-            try
-            {
-                SqlCommand cmd = new SqlCommand();
-
-                cmd.CommandText = "INSERT INTO Formation_matiere (Formation_id, Matiere_id) VALUES ";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
-
-                int i = 0;
-
-                foreach (Formation formation in matiere.LstFormations)
-                {
-                    String formationIdParamName = "@Formation_id" + i;
-                    String MatiereIdParamName = "@Matiere_id" + i;
-                    cmd.CommandText += "(" + formationIdParamName + ", " + MatiereIdParamName + "),";
-                    SqlParameter paramFormationId = new SqlParameter(formationIdParamName, SqlDbType.Int);
-                    paramFormationId.Value = formation.Id;
-                    cmd.Parameters.Add(paramFormationId);
-
-                    SqlParameter paramMatiereId = new SqlParameter(MatiereIdParamName, SqlDbType.Int);
-                    paramMatiereId.Value = matiere.Id;
-                    cmd.Parameters.Add(paramMatiereId);
-                    i++;
-                }
-                cmd.CommandText = cmd.CommandText.Remove(cmd.CommandText.Length - 1);
-                cmd.CommandText += ";";
-
-                cmd.ExecuteReader();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            cmd.ExecuteReader();
 
             return matiere;
         }

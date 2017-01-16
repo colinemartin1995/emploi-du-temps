@@ -35,8 +35,7 @@ namespace ItechSupEDT.Ajout_UC
             tb_nomFormation.Text = _formation.Nom;
             tb_dureeFormation.Text = _formation.NbHeuresTotal.ToString();
         }
-
-        private void btn_ajoutFormation_Click(object sender, RoutedEventArgs e)
+        private void SwipeMessages()
         {
             if (this.tbk_error.Visibility == Visibility.Visible)
             {
@@ -48,6 +47,10 @@ namespace ItechSupEDT.Ajout_UC
                 this.tbk_statut.Text = "";
                 this.tbk_statut.Visibility = Visibility.Collapsed;
             }
+        }
+        private void btn_ajoutFormation_Click(object sender, RoutedEventArgs e)
+        {
+            this.SwipeMessages();
             try
             {
                 Formation formation = FormationDAO.CreerFormation(tb_nomFormation.Text, tb_dureeFormation.Text);

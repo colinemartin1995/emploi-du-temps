@@ -10,17 +10,16 @@ namespace ItechSupEDT.Modele
 {
     public class Formateur : Destinataire
     {
-        private int? id;
+        private int id;
         private String nom;
         private String prenom;
         private String mail;
         private String telephone;
         private List<Matiere> lstMatiere;
         private List<Session> lstSessions;
-        public int? Id
+        public int Id
         {
             get { return this.id; }
-            set { if (this.id == null) this.id = value; }
         }
         public String Nom
         {
@@ -53,12 +52,13 @@ namespace ItechSupEDT.Modele
             set { this.lstSessions = value; }
         }
         
-        public Formateur(String _nom, String _prenom, String _mail, String _telephone, List<Matiere> _lstMatiere)
+        public Formateur(int _id, String _nom, String _prenom, String _mail, String _telephone, List<Matiere> _lstMatiere)
         {
             if (_lstMatiere.Count < 1)
             {
                 throw new FormateurException("Un formateur doit avoir au moins une matière.");
             }
+            this.id = _id;
             this.Nom = _nom;
             this.Prenom = _prenom;
             this.Mail = _mail;

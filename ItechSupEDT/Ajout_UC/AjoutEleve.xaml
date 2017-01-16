@@ -26,9 +26,9 @@
             </DockPanel>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                 <TextBlock Text="Promotion :" Margin="10,10,0,10"/>
-                <ComboBox x:Name="cb_lstPromotion" Margin="10,10,0,10"/>
+                <ComboBox x:Name="cb_lstPromotion" Margin="10,10,0,10" MinWidth="100"/>
             </StackPanel>
-            <Button x:Name="btn_valider" Content="Ajouter" Width="100"/>
+            <Button x:Name="btn_valider" Content="Ajouter" Width="100" Click="btn_valider_Click"/>
             <TextBlock Name="tbk_error" HorizontalAlignment="Center" Visibility="Collapsed" Foreground="Red" />
             <TextBlock Name="tbk_statut" HorizontalAlignment="Center" Visibility="Collapsed"/>
         </StackPanel>

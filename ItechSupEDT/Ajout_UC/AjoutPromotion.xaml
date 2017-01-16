@@ -23,7 +23,7 @@
             </StackPanel>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                 <TextBlock Text="Formation :" Margin="10,10,0,10"/>
-                <ComboBox x:Name="cb_lstFormations" Margin="10,10,0,10"/>
+                <ComboBox x:Name="cb_lstFormations" Margin="10,10,0,10" MinWidth="100"/>
             </StackPanel>
             <Button x:Name="btn_Valider" Content="Valider" Width="75" Click="btn_Valider_Click"/>
             <TextBlock Name="tbk_error" HorizontalAlignment="Center" Visibility="Collapsed" Foreground="Red" />

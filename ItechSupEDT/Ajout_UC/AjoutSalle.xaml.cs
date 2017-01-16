@@ -23,8 +23,7 @@ namespace ItechSupEDT.Ajout_UC
         {
             InitializeComponent();
         }
-
-        private void btn_Valider_Click(object sender, RoutedEventArgs e)
+        private void SwipeMessages()
         {
             if (this.tbk_error.Visibility == Visibility.Visible)
             {
@@ -36,7 +35,10 @@ namespace ItechSupEDT.Ajout_UC
                 this.tbk_statut.Text = "";
                 this.tbk_statut.Visibility = Visibility.Collapsed;
             }
-
+        }
+        private void btn_Valider_Click(object sender, RoutedEventArgs e)
+        {
+            this.SwipeMessages();
             string nom = this.tb_nomSalle.Text;
             string capacite = this.tb_capaciteSalle.Text;
             try

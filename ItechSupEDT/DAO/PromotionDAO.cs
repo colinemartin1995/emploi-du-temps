@@ -25,38 +25,31 @@ namespace ItechSupEDT.DAO
             if (formation == null)
                 throw new PromotionDAOException("La formation de la promotion n'est pas renseignée.");
 
-            try
-            {
-                SqlCommand cmd = new SqlCommand();
+            SqlCommand cmd = new SqlCommand();
 
-                cmd.CommandText = "INSERT INTO Promotion (Nom, DateDebut, DateFin, Formation_id) output INSERTED.Id VALUES (@Nom, @DateDebut, @DateFin, @FormationId);";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
+            cmd.CommandText = "INSERT INTO Promotion (Nom, DateDebut, DateFin, Formation_id) output INSERTED.Id VALUES (@Nom, @DateDebut, @DateFin, @FormationId);";
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
 
-                SqlParameter paramNom = new SqlParameter("Nom", SqlDbType.VarChar);
-                paramNom.Value = nom;
-                cmd.Parameters.Add(paramNom);
+            SqlParameter paramNom = new SqlParameter("Nom", SqlDbType.VarChar);
+            paramNom.Value = nom;
+            cmd.Parameters.Add(paramNom);
 
-                SqlParameter paramDateDebut = new SqlParameter("DateDebut", SqlDbType.DateTime);
-                paramDateDebut.Value = dateDebut;
-                cmd.Parameters.Add(paramDateDebut);
+            SqlParameter paramDateDebut = new SqlParameter("DateDebut", SqlDbType.DateTime);
+            paramDateDebut.Value = dateDebut;
+            cmd.Parameters.Add(paramDateDebut);
 
-                SqlParameter paramDateFin = new SqlParameter("DateFin", SqlDbType.DateTime);
-                paramDateFin.Value = dateFin;
-                cmd.Parameters.Add(paramDateFin);
+            SqlParameter paramDateFin = new SqlParameter("DateFin", SqlDbType.DateTime);
+            paramDateFin.Value = dateFin;
+            cmd.Parameters.Add(paramDateFin);
 
-                SqlParameter paramFormationId = new SqlParameter("FormationId", SqlDbType.Int);
-                paramFormationId.Value = formation.Id;
-                cmd.Parameters.Add(paramFormationId);
+            SqlParameter paramFormationId = new SqlParameter("FormationId", SqlDbType.Int);
+            paramFormationId.Value = formation.Id;
+            cmd.Parameters.Add(paramFormationId);
 
-                int idPromotion = (int)cmd.ExecuteScalar();
+            int idPromotion = (int)cmd.ExecuteScalar();
 
-                return new Promotion(idPromotion, nom, dateDebut, dateFin, formation);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            return new Promotion(idPromotion, nom, dateDebut, dateFin, formation);
         }
         public class PromotionDAOException : Exception
         {

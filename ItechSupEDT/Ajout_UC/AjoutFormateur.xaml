@@ -8,22 +8,25 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Border HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" BorderThickness="1,1,1,1" BorderBrush="Black">
         <StackPanel HorizontalAlignment="Center">
-            <StackPanel>
-                <TextBlock x:Name="tbk_errorMessage" />
-            </StackPanel>
+            <TextBlock Text="Ajouter un Formateur" HorizontalAlignment="Center"/>
             <DockPanel LastChildFill="True" Margin="5">
-                <TextBlock DockPanel.Dock="Left">Nom du formateur :</TextBlock>
+                <TextBlock DockPanel.Dock="Left">Nom :</TextBlock>
                 <TextBox DockPanel.Dock="Right" x:Name="tb_nomFormateur" MinWidth="150"/>
                 <Rectangle MinWidth="50"/>
             </DockPanel>
             <DockPanel LastChildFill="True" Margin="5">
-                <TextBlock DockPanel.Dock="left">Prénom du formateur :</TextBlock>
+                <TextBlock DockPanel.Dock="left">Prénom :</TextBlock>
                 <TextBox DockPanel.Dock="Right" x:Name="tb_prenomFormateur" MinWidth="150"/>
                 <StackPanel MinWidth="50"/>
             </DockPanel>
             <DockPanel LastChildFill="True" Margin="5">
-                <TextBlock DockPanel.Dock="Left">ail du formateur :</TextBlock>
+                <TextBlock DockPanel.Dock="Left">Mail :</TextBlock>
                 <TextBox DockPanel.Dock="Right" x:Name="tb_mailFormateur" MinWidth="150"/>
+                <StackPanel MinWidth="50"/>
+            </DockPanel>
+            <DockPanel LastChildFill="True" Margin="5">
+                <TextBlock DockPanel.Dock="Left">Téléphone :</TextBlock>
+                <TextBox DockPanel.Dock="Right" x:Name="tb_telFormateur" MinWidth="150"/>
                 <StackPanel MinWidth="50"/>
             </DockPanel>
             <ContentControl x:Name="MultiSelect"/>

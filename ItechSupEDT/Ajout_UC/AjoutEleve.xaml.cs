@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ItechSupEDT.Modele;
+using ItechSupEDT.DAO;
 
 namespace ItechSupEDT.Ajout_UC
 {
@@ -20,9 +22,64 @@ namespace ItechSupEDT.Ajout_UC
     /// </summary>
     public partial class AjoutEleve : UserControl
     {
-        public AjoutEleve()
+        private Dictionary<String, Promotion> dicoPromotions;
+        public Dictionary<String, Promotion> icoPromotions
+        {
+            get { return this.dicoPromotions; }
+            set { this.dicoPromotions = value; }
+        }
+        public AjoutEleve(Eleve eleve)
+        {
+            String nom = eleve.Nom;
+            String prenom = eleve.Prenom;
+            String mail = eleve.Mail;
+        }
+        public AjoutEleve(List<Promotion> _lstPromotion)
         {
             InitializeComponent();
+            this.dicoPromotions = new Dictionary<string, Promotion>();
+            if (_lstPromotion.Count > 0)
+            {
+                foreach (Promotion formation in _lstPromotion)
+                {
+                    this.dicoPromotions.Add(formation.Nom, formation);
+                }
+                this.cb_lstPromotion.ItemsSource = this.dicoPromotions.Keys;
+            }
+        }
+
+        private void SwipeMessages()
+        {
+            if (this.tbk_error.Visibility == Visibility.Visible)
+            {
+                this.tbk_error.Text = "";
+                this.tbk_error.Visibility = Visibility.Collapsed;
+            }
+            if (this.tbk_statut.Visibility == Visibility.Visible)
+            {
+                this.tbk_statut.Text = "";
+                this.tbk_statut.Visibility = Visibility.Collapsed;
+            }
+        }
+        private void btn_valider_Click(object sender, RoutedEventArgs e)
+        {
+            this.SwipeMessages();
+            String nom = tb_nomEleve.Text;
+            String prenom = tb_prenomEleve.Text;
+            String mail = tb_mailEleve.Text;
+            Promotion prom = this.dicoPromotions[(String)cb_lstPromotion.SelectedItem];
+            try
+            {
+                Eleve eleve = EleveDAO.CreerEleve(nom, prenom, mail, prom);
+            }
+            catch (Exception error)
+            {
+                this.tbk_error.Text = "Erreur : " + error.Message;
+                this.tbk_error.Visibility = Visibility.Visible;
+                return;
+            }
+            this.tbk_statut.Text = "Eleve Ajoutée.";
+            this.tbk_statut.Visibility = Visibility.Visible;
         }
     }
 }

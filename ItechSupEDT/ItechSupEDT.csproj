@@ -113,6 +113,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DAO\EleveDAO.cs" />
+    <Compile Include="DAO\FormateurDAO.cs" />
     <Compile Include="DAO\FormationDAO.cs" />
     <Compile Include="DAO\MatiereDAO.cs" />
     <Compile Include="DAO\PromotionDAO.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="Modele\Salle.cs" />
     <Compile Include="Modele\Session.cs" />
     <Compile Include="Outils\ConnexionBase.cs" />
+    <Compile Include="Outils\SQLcondition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

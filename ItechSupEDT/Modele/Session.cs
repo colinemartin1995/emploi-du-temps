@@ -50,13 +50,9 @@ namespace ItechSupEDT.Modele
             get { return this.salle; }
             set { this.salle = value; }
         }
-        public Session(DateTime _dateDebut, DateTime _dateFin, Promotion _promo, Matiere _matiere, Salle _salle)
+        public Session(DateTime _dateDebut, DateTime _dateFin, Promotion _promo, Matiere _matiere, Salle _salle) : this(_dateDebut, _dateFin, _promo, _matiere, _salle, null)
         {
-            this.DateDebut = _dateDebut;
-            this.DateFin = _dateFin;
-            this.Promotion = _promo;
-            this.Matiere = _matiere;
-            this.Salle = _salle;
+
         }
         public Session(DateTime _dateDebut, DateTime _dateFin, Promotion _promo, Matiere _matiere, Salle _salle, Formateur _formateur)
         {

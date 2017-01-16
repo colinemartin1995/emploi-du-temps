@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ItechSupEDT.Modele;
+using ItechSupEDT.DAO;
 using ItechSupEDT.Ajout_UC;
 using System.Data.SqlClient;
 using System.Data;
@@ -35,8 +36,7 @@ namespace ItechSupEDT.Ajout_UC
             MutliSelectPickList multiSelect = new MutliSelectPickList(lstNameable);
             this.MultiSelect.Content = multiSelect;
         }
-
-        private void btn_ajoutFormation_Click(object sender, RoutedEventArgs e)
+        private void SwipeMessages()
         {
             if (this.tbk_error.Visibility == Visibility.Visible)
             {
@@ -48,24 +48,31 @@ namespace ItechSupEDT.Ajout_UC
                 this.tbk_statut.Text = "";
                 this.tbk_statut.Visibility = Visibility.Collapsed;
             }
+        }
+        private void btn_ajoutFormation_Click(object sender, RoutedEventArgs e)
+        {
+            this.SwipeMessages();
             List<Nameable> lstMatieresNameable = ((MutliSelectPickList)(this.MultiSelect.Content)).GetSelectedObjects();
             List<Matiere> lstMatieres = new List<Matiere>();
             foreach (Nameable mat in lstMatieresNameable)
             {
                 lstMatieres.Add((Matiere)mat);
             }
-            if (lstMatieres.Count > 0)
+            String nom = this.tb_nomFormateur.Text;
+            String prenom = this.tb_prenomFormateur.Text;
+            String mail = this.tb_mailFormateur.Text;
+            String tel = this.tb_telFormateur.Text;
+            try
             {
-                String nom = this.tb_nomFormateur.Text;
-                String prenom = this.tb_prenomFormateur.Text;
-                String mail = this.tb_mailFormateur.Text;
+                Formateur formateur = FormateurDAO.CreerFormateur(nom, prenom, mail, tel, lstMatieres);
             }
-            else
+            catch (Exception error)
             {
-                this.tbk_error.Text = "Veuillez sélectionner au moins une matière.";
+                this.tbk_error.Text = "Erreur : " + error.Message;
                 this.tbk_error.Visibility = Visibility.Visible;
-                return;
             }
+            this.tbk_statut.Text = "Formateur Ajoutée.";
+            this.tbk_statut.Visibility = Visibility.Visible;
         }
     }
 }
