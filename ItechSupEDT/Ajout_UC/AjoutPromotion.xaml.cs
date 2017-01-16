@@ -34,7 +34,8 @@ namespace ItechSupEDT.Ajout_UC
         public AjoutPromotion(List<Formation> _lstFormations)
         {
             InitializeComponent();
-
+            this.dp_dateDebut.SelectedDate = DateTime.Today;
+            this.dp_dateFin.SelectedDate = DateTime.Today.AddYears(1);
             this.LstFormations = new Dictionary<string, Formation>();
             if (_lstFormations.Count > 0)
             {
@@ -64,7 +65,11 @@ namespace ItechSupEDT.Ajout_UC
             string nom = this.tb_nom.Text;
             DateTime _dateDebut = this.dp_dateDebut.SelectedDate.GetValueOrDefault();
             DateTime _dateFin = this.dp_dateFin.SelectedDate.GetValueOrDefault();
-            Formation _formation = LstFormations[(String)(this.cb_lstFormations.SelectedItem)];
+            Formation _formation = null;
+            if (this.cb_lstFormations.SelectedItem != null)
+            {
+                _formation = LstFormations[(String)(this.cb_lstFormations.SelectedItem)];
+            }
             try
             {
                 Promotion promotion = PromotionDAO.CreerPromotion(nom, _dateDebut, _dateFin, _formation);

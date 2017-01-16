@@ -13,7 +13,7 @@ namespace ItechSupEDT.DAO
     {
         public static Promotion CreerPromotion(String nom, DateTime dateDebut, DateTime dateFin, Formation formation)
         {
-            if (nom == null)
+            if (nom == null || nom == "")
                 throw new PromotionDAOException("Le nom de la promotion n'est pas renseigné.");
 
             if (dateDebut == null)
@@ -50,6 +50,38 @@ namespace ItechSupEDT.DAO
             int idPromotion = (int)cmd.ExecuteScalar();
 
             return new Promotion(idPromotion, nom, dateDebut, dateFin, formation);
+        }
+        public static List<Promotion> GetAll()
+        {
+            List<Promotion> listPromotions = new List<Promotion>();
+            String nom = "";
+            DateTime dateDebut;
+            DateTime dateFin;
+            int id;
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+                SqlDataReader reader;
+
+                cmd.CommandText = "SELECT Id, Nom, DateDebut, DateFin FROM Promotion;";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    id = int.Parse(reader["Id"].ToString());
+                    nom = reader["Nom"].ToString();
+                    dateDebut = DateTime.Parse(reader["dateDebut"].ToString());
+                    dateFin = DateTime.Parse(reader["dateFin"].ToString());
+                    listPromotions.Add(new Promotion(id, nom, dateDebut, dateFin));
+                }
+                reader.Close();
+            }
+            catch (Exception error)
+            {
+                throw new PromotionDAOException("Erreur lors de l'accès à la base de donnée : ", error);
+            }
+            return listPromotions;
         }
         public class PromotionDAOException : Exception
         {

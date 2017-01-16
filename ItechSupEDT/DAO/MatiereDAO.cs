@@ -16,7 +16,7 @@ namespace ItechSupEDT.DAO
         {
             Matiere matiere;
 
-            if (nom == null)
+            if (nom == null || nom == "")
                 throw new MatiereDAOException("Le nom de la matière n'est pas renseigné.");
 
             if (lstFormation.Count == 0)
@@ -42,7 +42,7 @@ namespace ItechSupEDT.DAO
 
             int i = 0;
 
-            foreach (Formation formation in matiere.LstFormations)
+            foreach (Formation formation in matiere.ListFormations)
             {
                 String formationIdParamName = "@Formation_id" + i;
                 String MatiereIdParamName = "@Matiere_id" + i;
@@ -62,6 +62,34 @@ namespace ItechSupEDT.DAO
             cmd.ExecuteReader();
 
             return matiere;
+        }
+        public static List<Matiere> GetAll()
+        {
+            List<Matiere> listMatieres = new List<Matiere>();
+            String nom = "";
+            int id;
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+                SqlDataReader reader;
+
+                cmd.CommandText = "SELECT Id, Nom FROM Matiere;";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    id = int.Parse(reader["Id"].ToString());
+                    nom = reader["Nom"].ToString();
+                    listMatieres.Add(new Matiere(id, nom));
+                }
+                reader.Close();
+            }
+            catch (Exception error)
+            {
+                throw new MatiereDAOException("Erreur lors de l'accès à la base de donnée : ", error);
+            }
+            return listMatieres;
         }
         public class MatiereDAOException : Exception
         {

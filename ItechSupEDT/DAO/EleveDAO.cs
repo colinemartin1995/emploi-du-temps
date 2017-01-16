@@ -14,13 +14,13 @@ namespace ItechSupEDT.DAO
     {
         public static Eleve CreerEleve(String nom, String prenom, String mail, Promotion promotion)
         {
-            if (nom == null)
+            if (nom == null || nom == "")
                 throw new EleveDAOException("Le nom de l'élève n'est pas renseigné.");
 
-            if (prenom == null)
+            if (prenom == null || prenom == "")
                 throw new EleveDAOException("Le prénom de l'élève n'est pas renseigné.");
 
-            if (mail == null)
+            if (mail == null || mail == "")
                 throw new EleveDAOException("Le mail de l'élève n'est pas renseigné.");
 
             if (promotion == null)

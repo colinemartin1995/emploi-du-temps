@@ -14,10 +14,10 @@ namespace ItechSupEDT.DAO
         public static Salle CreerSalle(String nom, String capaciteStr)
         {
             int capacite;
-            if (nom == null)
+            if (nom == null || nom == "")
                 throw new SalleDAOException("Le nom de la salle n'est pas renseigné.");
 
-            if (capaciteStr == null)
+            if (capaciteStr == null || capaciteStr == "")
                 throw new SalleDAOException("La capacité de la salle n'est pas renseignée.");
 
             try

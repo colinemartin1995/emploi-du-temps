@@ -15,16 +15,16 @@ namespace ItechSupEDT.DAO
         {
             Formateur formateur;
 
-            if (nom == null)
+            if (nom == null || nom == "")
                 throw new FormationDAOException("Le nom du formateur n'est pas renseigné.");
 
-            if (prenom == null)
+            if (prenom == null || prenom == "")
                 throw new FormationDAOException("Le prénom du formateur n'est pas renseignée.");
 
-            if (mail == null)
+            if (mail == null || mail == "")
                 throw new FormationDAOException("Le mail du formateur n'est pas renseignée.");
 
-            if (telephone == null)
+            if (telephone == null || telephone == "")
                 throw new FormationDAOException("Le numéro de téléphone du formateur n'est pas renseignée.");
 
             if (lstMatieres.Count < 1)
@@ -65,7 +65,7 @@ namespace ItechSupEDT.DAO
 
             int i = 0;
 
-            foreach (Matiere mat in formateur.LstMatiere)
+            foreach (Matiere mat in formateur.ListMatiere)
             {
                 String formateurIdParamName = "@Formateur_id" + i;
                 String MatiereIdParamName = "@Matiere_id" + i;

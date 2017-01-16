@@ -67,7 +67,11 @@ namespace ItechSupEDT.Ajout_UC
             String nom = tb_nomEleve.Text;
             String prenom = tb_prenomEleve.Text;
             String mail = tb_mailEleve.Text;
-            Promotion prom = this.dicoPromotions[(String)cb_lstPromotion.SelectedItem];
+            Promotion prom = null;
+            if (this.cb_lstPromotion.SelectedItem != null)
+            {
+                prom = this.dicoPromotions[(String)cb_lstPromotion.SelectedItem];
+            }
             try
             {
                 Eleve eleve = EleveDAO.CreerEleve(nom, prenom, mail, prom);

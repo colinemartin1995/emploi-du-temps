@@ -39,180 +39,22 @@ namespace ItechSupEDT
 		
         private void mi_ajout_matiere_Click(object sender, RoutedEventArgs e)
         {
-            AjoutMatiere ajoutMatiere = new AjoutMatiere(GetFormations());
+            AjoutMatiere ajoutMatiere = new AjoutMatiere(FormationDAO.GetAll());
             this.Ajout.Content = ajoutMatiere;
         }
 
         private void mi_ajout_promotion_Click(object sender, RoutedEventArgs e)
         {
-            AjoutPromotion ajoutPromotion = new AjoutPromotion(GetFormations());
+            AjoutPromotion ajoutPromotion = new AjoutPromotion(FormationDAO.GetAll());
             this.Ajout.Content = ajoutPromotion;
         }
         private void mi_ajout_formateur_Click(object sender, RoutedEventArgs e)
         {
-            AjoutFormateur ajoutFormateur = new AjoutFormateur(GetMatieres());
+            AjoutFormateur ajoutFormateur = new AjoutFormateur(MatiereDAO.GetAll());
             this.Ajout.Content = ajoutFormateur;
         }
 
-        private List<Formation> GetFormations()
-        {
-            List<Formation> lstFormations = new List<Formation>();
-            this.error_message.Text = "";
-            String nom = "";
-            int id;
-            float nbHeures = 0;
-            try
-            {
-                SqlCommand cmd = new SqlCommand();
-                SqlDataReader reader;
-
-                cmd.CommandText = "SELECT Id, Nom, NbHeuresTotal FROM Formation;";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
-                reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    id = int.Parse(reader["Id"].ToString());
-                    nom = reader["Nom"].ToString();
-                    nbHeures = float.Parse(reader["NbHeuresTotal"].ToString());
-                    lstFormations.Add(new Formation(id, nom, nbHeures));
-                }
-                reader.Close();
-            }
-            catch (Exception error)
-            {
-                this.error_message.Text = error.Message;
-                return null;
-            }
-            return lstFormations;
-        }
-
-        private List<Promotion> GetPromotions()
-        {
-            List<Promotion> lstPromotions = new List<Promotion>();
-            this.error_message.Text = "";
-            String nom = "";
-            DateTime dateDebut;
-            DateTime dateFin;
-            int id;
-            try
-            {
-                SqlCommand cmd = new SqlCommand();
-                SqlDataReader reader;
-
-                cmd.CommandText = "SELECT Id, Nom, DateDebut, DateFin FROM Promotion;";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
-                reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    id = int.Parse(reader["Id"].ToString());
-                    nom = reader["Nom"].ToString();
-                    dateDebut = DateTime.Parse(reader["dateDebut"].ToString());
-                    dateFin = DateTime.Parse(reader["dateFin"].ToString());
-                    lstPromotions.Add(new Promotion(id, nom, dateDebut, dateFin));
-                }
-                reader.Close();
-            }
-            catch (Exception error)
-            {
-                throw error;
-            }
-            return lstPromotions;
-        }
-
-        private List<Matiere> GetMatieres()
-        {
-            List<Matiere> lstMatieres = new List<Matiere>();
-            this.error_message.Text = "";
-            String nom = "";
-            int id;
-            try
-            {
-                SqlCommand cmd = new SqlCommand();
-                SqlDataReader reader;
-
-                cmd.CommandText = "SELECT Id, Nom FROM Matiere;";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
-                reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    id = int.Parse(reader["Id"].ToString());
-                    nom = reader["Nom"].ToString();
-                    lstMatieres.Add(new Matiere(id, nom));
-                }
-                reader.Close();
-            }
-            catch (Exception error)
-            {
-                this.error_message.Text = error.Message;
-                return null;
-            }
-            return lstMatieres;
-        }
-
-        private void mi_afficher_formation_Click(object sender, RoutedEventArgs e)
-        {
-            //this.error_message.Text = "";
-            //String nom = "";
-            //float nbHeures = 0;
-            //try
-            //{
-            //    SqlCommand cmd = new SqlCommand();
-            //    SqlDataReader reader;
-
-            //    cmd.CommandText = "SELECT Nom, NbHeuresTotal FROM Formation WHERE Id = 1;";
-            //    cmd.CommandType = CommandType.Text;
-            //    cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
-            //    reader = cmd.ExecuteReader();
-            //    while (reader.Read())
-            //    {
-            //        nom = reader["Nom"].ToString();
-            //        nbHeures = float.Parse(reader["NbHeuresTotal"].ToString());
-            //    }
-            //    reader.Close();
-            //}
-            //catch (Exception error)
-            //{
-            //    this.error_message.Text = error.Message;
-            //    return;
-            //}
-            //Formation formation = new Modele.Formation(nom, nbHeures);
-            //Ajout_UC.AjoutFormation ajoutFormation = new Ajout_UC.AjoutFormation(formation);
-            //this.Ajout.Content = ajoutFormation;
-        }
-
-        private void mi_afficher_matiere_Click(object sender, RoutedEventArgs e)
-        {
-            //this.error_message.Text = "";
-            //String nom = "";
-            //try
-            //{
-            //    SqlCommand cmd = new SqlCommand();
-            //    SqlDataReader reader;
-
-            //    cmd.CommandText = "SELECT Nom FROM Matiere WHERE Id = 1;";
-            //    cmd.CommandType = CommandType.Text;
-            //    cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
-            //    reader = cmd.ExecuteReader();
-            //    while (reader.Read())
-            //    {
-            //        nom = reader["Nom"].ToString();
-            //    }
-            //    reader.Close();
-            //}
-            //catch (Exception error)
-            //{
-            //    this.error_message.Text = error.Message;
-            //    return;
-            //}
-            //Matiere matiere = new Matiere(nom);
-            //Ajout_UC.AjoutMatiere ajoutMatiere = new Ajout_UC.AjoutMatiere(matiere);
-            //this.Ajout.Content = ajoutMatiere;
-        }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void mi_ajout_salle_Click(object sender, RoutedEventArgs e)
         {
             AjoutSalle ajoutSalle = new AjoutSalle();
             this.Ajout.Content = ajoutSalle;
@@ -222,18 +64,13 @@ namespace ItechSupEDT
         {
             try
             {
-                AjoutEleve ajoutEleve = new AjoutEleve(GetPromotions());
+                AjoutEleve ajoutEleve = new AjoutEleve(PromotionDAO.GetAll());
                 this.Ajout.Content = ajoutEleve;
             }
             catch (Exception error)
             {
                 this.error_message.Text = error.Message;
             }
-        }
-
-        private void mi_afficher_eleve_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

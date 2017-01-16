@@ -15,14 +15,14 @@
                     <MenuItem x:Name="mi_ajout_matiere" Header="Matiere" Click="mi_ajout_matiere_Click"/>
                     <MenuItem x:Name="mi_ajout_promotion" Header="Promotion" Click="mi_ajout_promotion_Click"/>
                     <MenuItem x:Name="mi_ajout_eleve" Header="Eleve" Click="mi_ajout_eleve_Click" />
-                    <MenuItem Header="Salle" Click="MenuItem_Click" />
+                    <MenuItem x:Name="mi_ajout_salle" Header="Salle" Click="mi_ajout_salle_Click" />
                     <MenuItem x:Name="mi_ajout_formateur" Header="Formateur" Click="mi_ajout_formateur_Click" />
                 </MenuItem>
                 <MenuItem Header="_Afficher">
-                    <MenuItem x:Name="mi_afficher_formation" Header="Formation" Click="mi_afficher_formation_Click"/>
-                    <MenuItem x:Name="mi_afficher_matiere" Header="Matiere" Click="mi_afficher_matiere_Click"/>
+                    <MenuItem x:Name="mi_afficher_formation" Header="Formation"/>
+                    <MenuItem x:Name="mi_afficher_matiere" Header="Matiere"/>
                     <MenuItem x:Name="mi_afficher_promotion" Header="Promotion"/>
-                    <MenuItem x:Name="mi_afficher_eleve" Header="Eleve" Click="mi_afficher_eleve_Click" />
+                    <MenuItem x:Name="mi_afficher_eleve" Header="Eleve"/>
                     <MenuItem x:Name="mi_afficher_formateur" Header="Formateur"/>
                 </MenuItem>
             </Menu>

@@ -70,6 +70,7 @@ namespace ItechSupEDT.Ajout_UC
             {
                 this.tbk_error.Text = "Erreur : " + error.Message;
                 this.tbk_error.Visibility = Visibility.Visible;
+                return;
             }
             this.tbk_statut.Text = "Formateur Ajouté.";
             this.tbk_statut.Visibility = Visibility.Visible;

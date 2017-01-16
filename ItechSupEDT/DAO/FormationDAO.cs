@@ -16,10 +16,10 @@ namespace ItechSupEDT.DAO
         {
             float nbHeuresTotal;
 
-            if (nom == null)
+            if (nom == null || nom == "")
                 throw new FormationDAOException ("Le nom de la formation n'est pas renseigné.");
 
-            if (nbHeuresTotalStr == null)
+            if (nbHeuresTotalStr == null || nbHeuresTotalStr == "")
                 throw new FormationDAOException("La durée de la formation n'est pas renseignée.");
             
             try
@@ -48,6 +48,36 @@ namespace ItechSupEDT.DAO
             int idFormation = (int)cmd.ExecuteScalar();
                 
             return new Formation(idFormation, nom, nbHeuresTotal);
+        }
+        public static List<Formation> GetAll()
+        {
+            List<Formation> listFormations = new List<Formation>();
+            String nom = "";
+            int id;
+            float nbHeures = 0;
+            try
+            {
+                SqlCommand cmd = new SqlCommand();
+                SqlDataReader reader;
+
+                cmd.CommandText = "SELECT Id, Nom, NbHeuresTotal FROM Formation;";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    id = int.Parse(reader["Id"].ToString());
+                    nom = reader["Nom"].ToString();
+                    nbHeures = float.Parse(reader["NbHeuresTotal"].ToString());
+                    listFormations.Add(new Formation(id, nom, nbHeures));
+                }
+                reader.Close();
+            }
+            catch (Exception error)
+            {
+                throw new FormationDAOException("Erreur lors de l'accès à la base de donnée : ", error);
+            }
+            return listFormations;
         }
         public class FormationDAOException : Exception
         {
