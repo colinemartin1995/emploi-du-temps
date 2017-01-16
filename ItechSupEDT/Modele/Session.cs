@@ -10,7 +10,7 @@ namespace ItechSupEDT.Modele
     {
         private DateTime dateDebut;
         private DateTime dateFin;
-        private List<EmploisDuTemps> lstEDT;
+        private List<EmploisDuTemps> listEDT;
         private Promotion promotion;
         private Matiere matiere;
         private Formateur formateur;
@@ -25,10 +25,10 @@ namespace ItechSupEDT.Modele
             get { return this.dateFin; }
             set { this.dateFin = value; }
         }
-        public List<EmploisDuTemps> LstEDT
+        public List<EmploisDuTemps> ListEDT
         {
-            get { return this.lstEDT; }
-            set { this.lstEDT = value; }
+            get { return this.listEDT; }
+            set { this.listEDT = value; }
         }
         public Promotion Promotion
         {

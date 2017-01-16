@@ -10,7 +10,7 @@ namespace ItechSupEDT.Modele
     {
         private DateTime dateDebut;
         private DateTime dateFin;
-        private List<Session> lstSessions;
+        private List<Session> listSessions;
         private Destinataire destinataire;
         public DateTime DateDebut
         {
@@ -22,17 +22,17 @@ namespace ItechSupEDT.Modele
             get { return this.dateFin; }
             set { this.dateFin = value; }
         }
-        public List<Session> LstSessions
+        public List<Session> ListSessions
         {
-            get { return this.lstSessions; }
-            set { this.lstSessions = value; }
+            get { return this.listSessions; }
+            set { this.listSessions = value; }
         }
         public EmploisDuTemps(DateTime _dateDebut, DateTime _dateFin, Destinataire _dest)
         {
             this.DateDebut = _dateDebut;
             this.DateFin = _dateFin;
             this.Destinataire = _dest;
-            this.LstSessions = this.Destinataire.GetSessions(this.DateDebut, this.DateFin);
+            this.ListSessions = this.Destinataire.GetSessions(this.DateDebut, this.DateFin);
         }
         public Destinataire Destinataire
         {

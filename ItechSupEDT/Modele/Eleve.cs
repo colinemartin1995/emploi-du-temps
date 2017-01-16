@@ -14,7 +14,7 @@ namespace ItechSupEDT.Modele
         private String prenom;
         private String mail;
         private Promotion promotion;
-        private List<Absence> lstAbsences;
+        private List<Absence> listAbsences;
         public int Id
         {
             get { return this.id; }
@@ -39,14 +39,10 @@ namespace ItechSupEDT.Modele
             get { return this.promotion; }
             set { this.promotion = value; }
         }
-        public List<Absence> LstAbsences
+        public List<Absence> ListAbsences
         {
-            get { return this.lstAbsences; }
-            set { this.lstAbsences = value; }
-        }
-        public Eleve(int _id, String _nom, String _prenom, String _mail) : this(_id, _nom, _prenom, _mail, null)
-        {
-
+            get { return this.listAbsences; }
+            set { this.listAbsences = value; }
         }
         public Eleve(int _id, String _nom, String _prenom, String _mail, Promotion _promo)
         {
@@ -55,11 +51,11 @@ namespace ItechSupEDT.Modele
             this.Prenom = _prenom;
             this.Mail = _mail;
             this.Promotion = _promo;
-            this.LstAbsences = new List<Absence>();
+            this.ListAbsences = new List<Absence>();
         }
         public int GetNbAbsence(DateTime dateDebut, DateTime dateFin)
         {
-            return this.LstAbsences.Count;
+            return this.ListAbsences.Count;
         }
         string Nameable.getNom()
         {

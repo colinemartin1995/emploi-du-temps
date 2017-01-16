@@ -12,9 +12,9 @@ namespace ItechSupEDT.Modele
         private String nom;
         private DateTime dateDebut;
         private DateTime dateFin;
-        private List<Eleve> lstEleves;
+        private List<Eleve> listEleves;
         private Formation formation;
-        private List<Session> lstSessions;
+        private List<Session> listSessions;
         public int Id
         {
             get { return this.id; }
@@ -34,20 +34,20 @@ namespace ItechSupEDT.Modele
             get { return this.dateFin; }
             set { this.dateFin = value; }
         }
-        public List<Eleve> LstEleves
+        public List<Eleve> ListEleves
         {
-            get { return this.lstEleves; }
-            set { this.lstEleves = value; }
+            get { return this.listEleves; }
+            set { this.listEleves = value; }
         }
         public Formation Formation
         {
             get { return this.formation; }
             set { this.formation = value; }
         }
-        public List<Session> LstSessions
+        public List<Session> ListSessions
         {
-            get { return this.lstSessions; }
-            set { this.lstSessions = value; }
+            get { return this.listSessions; }
+            set { this.listSessions = value; }
         }
         public Promotion(int _id, String _nom, DateTime _dateDebut, DateTime _dateFin, Formation _formation)
         {
@@ -56,8 +56,8 @@ namespace ItechSupEDT.Modele
             this.DateDebut = _dateDebut;
             this.DateFin = _dateFin;
             this.Formation = _formation;
-            this.LstSessions = new List<Session>();
-            this.LstEleves = new List<Eleve>();
+            this.ListSessions = new List<Session>();
+            this.ListEleves = new List<Eleve>();
         }
         public Promotion(int _id, String _nom, DateTime _dateDebut, DateTime _dateFin) : this(_id, _nom, _dateDebut, _dateFin, null)
         {
@@ -65,16 +65,16 @@ namespace ItechSupEDT.Modele
         }
         public void AddEleve(Eleve eleve)
         {
-            if (this.LstEleves.Count > 24)
+            if (this.ListEleves.Count > 24)
             {
                 throw new PromotionException("La promotion est complète");
             }
-            this.LstEleves.Add(eleve);
+            this.ListEleves.Add(eleve);
         }
         public bool EstDisponible(DateTime _dateDebut, DateTime _dateFin)
         {
             bool disponible = true;
-            foreach (Session session in this.LstSessions)
+            foreach (Session session in this.ListSessions)
             {
                 bool conflitDebut = (_dateDebut > session.DateDebut) && (_dateDebut < session.DateFin);
                 bool conflitFin = (_dateFin > session.DateDebut) && (_dateFin < session.DateFin);
@@ -87,15 +87,15 @@ namespace ItechSupEDT.Modele
         }
         List<Session> Destinataire.GetSessions(DateTime _dateDebut, DateTime _dateFin)
         {
-            List<Session> lstSessions = new List<Session>();
-            foreach (Session session in this.LstSessions)
+            List<Session> listSessions = new List<Session>();
+            foreach (Session session in this.ListSessions)
             {
                 if (session.DateDebut > _dateDebut && session.DateFin < _dateFin)
                 {
-                    lstSessions.Add(session);
+                    listSessions.Add(session);
                 }
             }
-            return lstSessions;
+            return listSessions;
         }
         public class PromotionException : Exception
         {

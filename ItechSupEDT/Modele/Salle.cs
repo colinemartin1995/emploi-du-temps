@@ -11,7 +11,7 @@ namespace ItechSupEDT.Modele
         private int id;
         private String nom;
         private int capacite;
-        private List<Session> lstSessions;
+        private List<Session> listSessions;
         public int Id
         {
             get { return this.id; }
@@ -26,22 +26,22 @@ namespace ItechSupEDT.Modele
             get { return this.capacite; }
             set { this.capacite = value; }
         }
-        public List<Session> LstSessions
+        public List<Session> ListSessions
         {
-            get { return this.lstSessions; }
-            set { this.lstSessions = value; }
+            get { return this.listSessions; }
+            set { this.listSessions = value; }
         }
         public Salle(int _id, String _nom, int _capacite)
         {
             this.id = _id;
             this.Nom = _nom;
             this.Capacite = _capacite;
-            this.LstSessions = new List<Session>();
+            this.ListSessions = new List<Session>();
         }
         public bool EstDisponible(DateTime _dateDebut, DateTime _dateFin)
         {
             bool disponible = true;
-            foreach (Session session in this.LstSessions)
+            foreach (Session session in this.ListSessions)
             {
                 bool conflitDebut = (_dateDebut > session.DateDebut) && (_dateDebut < session.DateFin);
                 bool conflitFin = (_dateFin > session.DateDebut) && (_dateFin < session.DateFin);
@@ -54,15 +54,15 @@ namespace ItechSupEDT.Modele
         }
         List<Session> Destinataire.GetSessions(DateTime _dateDebut, DateTime _dateFin)
         {
-            List<Session> lstSessions = new List<Session>();
-            foreach (Session session in this.LstSessions)
+            List<Session> listSessions = new List<Session>();
+            foreach (Session session in this.ListSessions)
             {
                 if (session.DateDebut > _dateDebut && session.DateFin < _dateFin)
                 {
-                    lstSessions.Add(session);
+                    listSessions.Add(session);
                 }
             }
-            return lstSessions;
+            return listSessions;
         }
     }
 }

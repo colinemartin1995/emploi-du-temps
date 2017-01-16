@@ -15,8 +15,8 @@ namespace ItechSupEDT.Modele
         private String prenom;
         private String mail;
         private String telephone;
-        private List<Matiere> lstMatiere;
-        private List<Session> lstSessions;
+        private List<Matiere> listMatiere;
+        private List<Session> listSessions;
         public int Id
         {
             get { return this.id; }
@@ -41,20 +41,20 @@ namespace ItechSupEDT.Modele
             get { return this.telephone; }
             set { this.telephone = value; }
         }
-        public List<Matiere> LstMatiere
+        public List<Matiere> ListMatiere
         {
-            get { return this.lstMatiere; }
-            set { this.lstMatiere = value; }
+            get { return this.listMatiere; }
+            set { this.listMatiere = value; }
         }
-        public List<Session> LstSessions
+        public List<Session> ListSessions
         {
-            get { return this.lstSessions; }
-            set { this.lstSessions = value; }
+            get { return this.listSessions; }
+            set { this.listSessions = value; }
         }
         
-        public Formateur(int _id, String _nom, String _prenom, String _mail, String _telephone, List<Matiere> _lstMatiere)
+        public Formateur(int _id, String _nom, String _prenom, String _mail, String _telephone, List<Matiere> _listMatiere)
         {
-            if (_lstMatiere.Count < 1)
+            if (_listMatiere.Count < 1)
             {
                 throw new FormateurException("Un formateur doit avoir au moins une matière.");
             }
@@ -63,13 +63,13 @@ namespace ItechSupEDT.Modele
             this.Prenom = _prenom;
             this.Mail = _mail;
             this.Telephone = _telephone;
-            this.LstMatiere = _lstMatiere;
-            this.LstSessions = new List<Session>();
+            this.ListMatiere = _listMatiere;
+            this.ListSessions = new List<Session>();
         }
         public float NbHeuresTravaillees(DateTime _dateDebut, DateTime _dateFin)
         {
             float nbHeuresTravaillees = 0;
-            foreach (Session session in this.LstSessions)
+            foreach (Session session in this.ListSessions)
             {
                 if (session.DateDebut > _dateDebut && session.DateFin < _dateFin)
                 {
@@ -81,7 +81,7 @@ namespace ItechSupEDT.Modele
         public bool EstDisponible(DateTime _dateDebut, DateTime _dateFin)
         {
             bool disponible = true;
-            foreach (Session session in this.LstSessions)
+            foreach (Session session in this.ListSessions)
             {
                 bool conflitDebut = (_dateDebut > session.DateDebut) && (_dateDebut < session.DateFin);
                 bool conflitFin = (_dateFin > session.DateDebut) && (_dateFin < session.DateFin);
@@ -95,7 +95,7 @@ namespace ItechSupEDT.Modele
         List<Session> Destinataire.GetSessions(DateTime _dateDebut, DateTime _dateFin)
         {
             List<Session> lstSessions = new List<Session>();
-            foreach (Session session in this.LstSessions)
+            foreach (Session session in this.ListSessions)
             {
                 if (session.DateDebut > _dateDebut && session.DateFin < _dateFin)
                 {
