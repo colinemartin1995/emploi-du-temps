@@ -49,54 +49,6 @@ namespace ItechSupEDT.DAO
                 
             return new Formation(idFormation, nom, nbHeuresTotal);
         }
-        public static List<Formation> GetAll()
-        {
-            return Select(null);
-        }
-        public static List<Formation> Select(List<SQLcondition> listConditions)
-        {
-            SqlCommand cmd = new SqlCommand();
-            SqlDataReader reader;
-            List<Formation> listFormations = new List<Formation>();
-
-            try
-            {
-                cmd.CommandText = "SELECT Id, Nom, NbHeures FROM Formation";
-                if (listConditions == null)
-                {
-                    for (int i = 0; i < listConditions.Count; i++)
-                    {
-                        SQLcondition condi = listConditions[i];
-                        if (i == 0)
-                        {
-                            cmd.CommandText += " WHERE " + condi.ToString();
-                        }
-                        else
-                        {
-                            cmd.CommandText += " AND " + condi.ToString();
-                        }
-                    }
-                }
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
-                reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    int id;
-                    Int32.TryParse(reader["Id"].ToString(), out id);
-                    String nom = reader["Nom"].ToString();
-                    float nbHeures;
-                    float.TryParse(reader["NbHeures"].ToString(), out nbHeures);
-                    listFormations.Add(new Formation(id, nom, nbHeures));
-                }
-                reader.Close();
-            }
-            catch (Exception e)
-            {
-                throw new FormationDAOException("Erreur lors de l'accès à la base de donnée : ", e);
-            }
-            return listFormations;
-        }
         public class FormationDAOException : Exception
         {
             public FormationDAOException(string message) : base(message)

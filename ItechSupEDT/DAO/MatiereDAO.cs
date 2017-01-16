@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ItechSupEDT.Modele;
 using System.Data;
 using System.Data.SqlClient;
+using ItechSupEDT.Outils;
 
 namespace ItechSupEDT.DAO
 {
@@ -65,6 +66,9 @@ namespace ItechSupEDT.DAO
         public class MatiereDAOException : Exception
         {
             public MatiereDAOException(string message) : base(message)
+            {
+            }
+            public MatiereDAOException(string message, Exception innerException) : base(message, innerException)
             {
             }
         }

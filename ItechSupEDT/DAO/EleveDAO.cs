@@ -52,54 +52,6 @@ namespace ItechSupEDT.DAO
 
             return new Eleve(idEleve, nom, prenom, mail, promotion);
         }
-        public static List<Eleve> GetAll()
-        {
-            return Select(null);
-        }
-        public static List<Eleve> Select(List<SQLcondition> listConditions)
-        {
-            SqlCommand cmd = new SqlCommand();
-            SqlDataReader reader;
-            List<Eleve> lstEleves = new List<Eleve>();
-
-            try
-            {
-                cmd.CommandText = "SELECT Id, Nom, Prenom, Mail FROM Eleve";
-                if (listConditions == null)
-                {
-                    for (int i = 0; i < listConditions.Count; i++)
-                    {
-                        SQLcondition condi = listConditions[i];
-                        if (i == 0)
-                        {
-                            cmd.CommandText += " WHERE " + condi.ToString();
-                        }
-                        else
-                        {
-                            cmd.CommandText += " AND " + condi.ToString();
-                        }
-                    }
-                }
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = Outils.ConnexionBase.GetInstance().Conn;
-                reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    int id;
-                    Int32.TryParse(reader["Id"].ToString(), out id);
-                    String nom = reader["Nom"].ToString();
-                    String prenom = reader["Prenom"].ToString();
-                    String mail = reader["Mail"].ToString();
-                    lstEleves.Add(new Eleve(id, nom, prenom, mail));
-                }
-                reader.Close();
-            }
-            catch (Exception e)
-            {
-                throw new EleveDAOException("Erreur lors de l'accès à la base de donnée : ", e);
-            }
-            return lstEleves;
-        }
         public class EleveDAOException : Exception
         {
             public EleveDAOException(string message) : base(message)
