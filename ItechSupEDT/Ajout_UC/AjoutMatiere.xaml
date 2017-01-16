@@ -14,6 +14,7 @@
                     <TextBlock Text="Nom :" HorizontalAlignment="Center" Margin="10,10,0,10"/>
                     <TextBox Name="tb_nomMatiere" MinWidth="100" Margin="10"/>
                 </StackPanel>
+                <TextBlock Text="Formations :" HorizontalAlignment="Left" Margin="10,10,0,10"/>
                 <ContentControl x:Name="MultiSelect"/>
                 <Button x:Name="btn_Valider" Content="Valider" Width="75" Click="btn_valider_Click"/>
             </StackPanel>

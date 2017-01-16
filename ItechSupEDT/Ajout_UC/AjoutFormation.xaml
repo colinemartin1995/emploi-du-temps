@@ -9,6 +9,7 @@
     <Border HorizontalAlignment="Center" VerticalAlignment="Center" Padding="10" BorderThickness="1,1,1,1" BorderBrush="Black">
         <StackPanel HorizontalAlignment="Center">
             <StackPanel>
+                <TextBlock Text="Ajouter une Formation" HorizontalAlignment="Center"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="5">
                 <TextBlock Margin="5,5,5,5">Nom de la formation :</TextBlock>

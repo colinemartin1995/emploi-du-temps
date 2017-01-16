@@ -78,7 +78,7 @@ namespace ItechSupEDT.Ajout_UC
                 this.tbk_error.Visibility = Visibility.Visible;
                 return;
             }
-            this.tbk_statut.Text = "Eleve Ajoutée.";
+            this.tbk_statut.Text = "Eleve Ajouté.";
             this.tbk_statut.Visibility = Visibility.Visible;
         }
     }
